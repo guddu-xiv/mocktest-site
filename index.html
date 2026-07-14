@@ -236,7 +236,6 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"CDM and Simon Commission","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"CDM and Simon Commission"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Quit India Movement","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Quit India Movement"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Governor-General and Viceroy","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Governor-General and Viceroy"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Logical Analogy Quick Mock Exam","description":"Standard Analogy Test of Logical Reasoning.","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Analogy Practice Test"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
 
     
     <!-- Google Fonts Imports -->
@@ -2829,7 +2828,7 @@
     </style>
     <script>
         window.__studentAppChunkCount = 5;
-        window.__studentAppBuildId = "prayas_build_1784029374470_r5izt17";
+        window.__studentAppBuildId = "prayas_build_1784042079441_8kongwk";
     </script>
 </head>
 <body>
@@ -10573,7 +10572,7 @@
                         '}' +
                         '</style>' +
                         '<div id="db-loading-spinner"></div>' +
-                        '<div id="db-loader-error" style="display:none; margin-top:20px; color:#F87171; font-size:15px; font-weight:800; text-align:center; padding:15px 25px; background:#1E293B; border-radius:12px; border:1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.25);"></div>';
+                        '<div id="db-loader-error" style="display:none; margin-top:20px; color:#EF4444; font-size:12px; text-align:left; max-width:80%; line-height:1.6; padding:20px; background:#1F2937; border-radius:10px; border:1px solid #374151; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);"></div>';
                     document.body.appendChild(loaderOverlay);
                 }
 
@@ -10672,7 +10671,9 @@
                         
                         var errorEl = document.getElementById("db-loader-error");
                         if (errorEl) {
-                            errorEl.innerHTML = '⚠️ Server Error';
+                            errorEl.innerHTML = '<strong style="font-size: 14px; color: #F87171; display:block; margin-bottom:8px;">&#9888;&#65039; Database Load Failed</strong>' +
+                                'Error reassembling database chunk elements: <code style="color: #FF8F8F; font-weight: bold; background: #2D3748; padding: 2px 6px; border-radius: 4px;">' + (e.message || "Network Error") + '</code><br/><br/>' +
+                                'Ensure that your database segment files (<code>config_part_*.txt</code>) have been successfully uploaded to your storage bucket: <code style="color: #FF8F8F;">' + _getRegistryPath("") + '</code> and that public read access with CORS is correctly set up.';
                             errorEl.style.display = "block";
                         }
                         return; // halt boot sequence
