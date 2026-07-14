@@ -332,6 +332,16 @@
             opacity: 0.95 !important;
         }
 
+        /* High Contrast Guarantee: White-on-Yellow is extremely hard to read. Any element with a yellow background must have dark black text. */
+        [style*="background: var(--primary)"],
+        [style*="background:var(--primary)"],
+        [style*="background: #FFB800"],
+        [style*="background:#FFB800"],
+        [style*="background: #ffb800"],
+        [style*="background:#ffb800"] {
+            color: #111111 !important;
+        }
+
         /* Dark Mode Theme Overrides */
         body.dark-mode {
             background-color: #111111 !important;
@@ -346,6 +356,117 @@
             --tap-active-bg: rgba(255, 184, 0, 0.22);
             background-color: #111111 !important;
             color: #EFECE6 !important;
+        }
+
+        /* Target inline text colors and automatically brighten them in dark-mode */
+        .dark-mode [style*="color: #1e293b"],
+        .dark-mode [style*="color:#1e293b"],
+        .dark-mode [style*="color: #475569"],
+        .dark-mode [style*="color:#475569"],
+        .dark-mode [style*="color: #334155"],
+        .dark-mode [style*="color:#334155"],
+        .dark-mode [style*="color: #0f172a"],
+        .dark-mode [style*="color:#0f172a"],
+        .dark-mode [style*="color: #64748b"],
+        .dark-mode [style*="color:#64748b"],
+        .dark-mode [style*="color: #57606f"],
+        .dark-mode [style*="color:#57606f"] {
+            color: #EFECE6 !important;
+        }
+
+        .dark-mode [style*="color: #b45309"],
+        .dark-mode [style*="color:#b45309"] {
+            color: #fbbf24 !important;
+        }
+
+        /* Dynamic Theme and Visibility Guardians for specific inline styles in dark-mode */
+        .dark-mode div[style*="background: #ffffff"],
+        .dark-mode div[style*="background:#ffffff"],
+        .dark-mode div[style*="background: #fff"],
+        .dark-mode div[style*="background:#fff"],
+        .dark-mode div[style*="background-color: #ffffff"],
+        .dark-mode div[style*="background-color:#ffffff"],
+        .dark-mode div[style*="background-color: #fff"],
+        .dark-mode div[style*="background-color:#fff"] {
+            background-color: #181818 !important;
+            background: #181818 !important;
+            color: #EFECE6 !important;
+            border-color: #2A2A28 !important;
+        }
+
+        .dark-mode div[style*="background: #f8fafc"],
+        .dark-mode div[style*="background:#f8fafc"],
+        .dark-mode div[style*="background-color: #f8fafc"],
+        .dark-mode div[style*="background-color:#f8fafc"],
+        .dark-mode div[style*="background: #f1f5f9"],
+        .dark-mode div[style*="background:#f1f5f9"],
+        .dark-mode div[style*="background-color: #f1f5f9"],
+        .dark-mode div[style*="background-color:#f1f5f9"],
+        .dark-mode div[style*="background: #eef1f6"],
+        .dark-mode div[style*="background:#eef1f6"],
+        .dark-mode div[style*="background: #fafafa"],
+        .dark-mode div[style*="background:#fafafa"] {
+            background-color: #1c1c1e !important;
+            background: #1c1c1e !important;
+            color: #EFECE6 !important;
+            border-color: #2A2A28 !important;
+        }
+
+        .dark-mode div[style*="background: #fffbeb"],
+        .dark-mode div[style*="background:#fffbeb"],
+        .dark-mode div[style*="background: #fffde7"],
+        .dark-mode div[style*="background:#fffde7"],
+        .dark-mode div[style*="background: #fef3c7"],
+        .dark-mode div[style*="background:#fef3c7"] {
+            background-color: #241d13 !important;
+            background: #241d13 !important;
+            color: #fbbf24 !important;
+            border-color: #b45309 !important;
+        }
+
+        .dark-mode div[style*="background: #e1f5fe"],
+        .dark-mode div[style*="background:#e1f5fe"] {
+            background-color: #0c243c !important;
+            background: #0c243c !important;
+            color: #93c5fd !important;
+            border-color: #1e3a5f !important;
+        }
+
+        .dark-mode div[style*="background: #f1f2f6"],
+        .dark-mode div[style*="background:#f1f2f6"] {
+            background-color: #1e1e1e !important;
+            background: #1e1e1e !important;
+            color: #EFECE6 !important;
+            border-color: #2A2A28 !important;
+        }
+
+        .dark-mode div[style*="background: #fef2f2"],
+        .dark-mode div[style*="background:#fef2f2"],
+        .dark-mode div[style*="background: #fee2e2"],
+        .dark-mode div[style*="background:#fee2e2"] {
+            background-color: #441c1c !important;
+            background: #441c1c !important;
+            color: #fca5a5 !important;
+            border-color: #ef4444 !important;
+        }
+
+        /* Button adaptive overrides in dark mode */
+        .dark-mode button {
+            background-color: #1c1c1e !important;
+            color: #ffffff !important;
+            border-color: #3A3A38 !important;
+        }
+        
+        .dark-mode button.btn-fill-prime,
+        .dark-mode .btn-fill-prime,
+        .dark-mode button[style*="background: var(--primary)"],
+        .dark-mode button[style*="background:var(--primary)"],
+        .dark-mode button[style*="background: #FFB800"],
+        .dark-mode button[style*="background:#FFB800"] {
+            background-color: #FFB800 !important;
+            background: #FFB800 !important;
+            color: #111111 !important;
+            border-color: #FFB800 !important;
         }
 
         /* Comprehensive Day/Night Visibility Guardians */
@@ -1812,35 +1933,43 @@
 
         /* Professional fixed background watermark */
         .watermark-container {
-            display: none !important;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            display: flex;
+            display: flex !important;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             pointer-events: none;
-            opacity: 0.05;
+            opacity: 0.07;
             z-index: 1;
             width: 100%;
             text-align: center;
         }
 
         .watermark-img {
-            width: 160px;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 20px;
-            margin-bottom: 12px;
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            border-radius: 24px;
+            margin-bottom: 15px;
         }
 
         .watermark-text {
-            font-size: 32px;
-            font-weight: 950;
-            letter-spacing: 4px;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 3px;
             color: var(--dark);
+            text-transform: uppercase;
+        }
+
+        body.dark-mode .watermark-text {
+            color: #ffffff !important;
+        }
+
+        body.dark-mode .watermark-container {
+            opacity: 0.05 !important;
         }
 
         /* Exam questions container */
@@ -2700,7 +2829,7 @@
     </style>
     <script>
         window.__studentAppChunkCount = 5;
-        window.__studentAppBuildId = "prayas_build_1784016085833_r2yonmu";
+        window.__studentAppBuildId = "prayas_build_1784020812491_dv0rx59";
     </script>
 </head>
 <body>
@@ -9339,12 +9468,111 @@
         }
         window.checkConcurrentUserSession = checkConcurrentUserSession;
 
+        function showStudentLoginDetailsPopup(user, onOk) {
+            if (!user) {
+                if (typeof onOk === "function") onOk();
+                return;
+            }
+            
+            var categoryNames = [];
+            var allCats = (DB.testCategories || []).concat(DB.pdfCategories || []);
+            var unlockedIds = user.unlockedCategoryIds || [];
+            
+            unlockedIds.forEach(function(id) {
+                var found = allCats.find(function(c) { return c.id === id; });
+                if (found) {
+                    var expLabel = "Lifetime";
+                    var isCurrentExpired = false;
+                    var catExpiry = null;
+                    var isCatLifetime = false;
+                    var hasSpecific = false;
+                    if (user.categoryDates && user.categoryDates[id]) {
+                        var catData = user.categoryDates[id];
+                        if (catData.isLifetime) {
+                            isCatLifetime = true;
+                            hasSpecific = true;
+                        } else if (catData.expiryDate && catData.expiryDate.trim() !== "") {
+                            catExpiry = catData.expiryDate;
+                            hasSpecific = true;
+                        }
+                    }
+                    if (!hasSpecific) {
+                        if (user.expiryDate && user.expiryDate.trim() !== "") {
+                            catExpiry = user.expiryDate;
+                        } else {
+                            isCatLifetime = true;
+                        }
+                    }
+                    
+                    if (isCatLifetime) {
+                        expLabel = "Lifetime Access";
+                    } else if (catExpiry) {
+                        var exp = new Date(catExpiry);
+                        var diffMs = exp.getTime() - Date.now();
+                        var diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+                        if (diffDays > 0) {
+                            expLabel = diffDays + " Days Left";
+                        } else {
+                            expLabel = "Expired";
+                            isCurrentExpired = true;
+                        }
+                    } else {
+                        expLabel = "Lifetime Access";
+                    }
+                    
+                    var exists = categoryNames.some(function(item) { return item.id === found.id; });
+                    if (!exists) {
+                        categoryNames.push({
+                            id: found.id,
+                            name: found.name,
+                            expiry: expLabel,
+                            expired: isCurrentExpired
+                        });
+                    }
+                }
+            });
+            
+            var html = '';
+            if (categoryNames.length === 0) {
+                html += '<div style="padding: 15px 10px; text-align: center; font-family: Sahitya, serif;">' +
+                        '  <i class="ph-bold ph-lock-keyhole" style="font-size: 32px; color: #94a3b8; margin-bottom: 8px; display: block;"></i>' +
+                        '  <div style="font-size: 13.5px; color: #64748b; font-weight: 700;">No premium packages unlocked yet.</div>' +
+                        '</div>';
+            } else {
+                html += '<div style="text-align: left; font-family: Sahitya, serif;">' +
+                        '  <div style="font-size: 12.5px; color: #64748b; margin-bottom: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px;">Activated Packages:</div>' +
+                        '  <div style="display: flex; flex-direction: column; gap: 10px; max-height: 220px; overflow-y: auto; padding-right: 2px;">';
+                
+                categoryNames.forEach(function(item) {
+                    var isExp = item.expired;
+                    var bg = isExp ? 'rgba(239,68,68,0.03)' : 'rgba(34,197,94,0.03)';
+                    var border = isExp ? 'rgba(239,68,68,0.12)' : 'rgba(34,197,94,0.12)';
+                    var pillBg = isExp ? 'rgba(239,68,68,0.1)' : 'rgba(34,197,94,0.1)';
+                    var pillColor = isExp ? '#ef4444' : '#22c55e';
+                    var icon = isExp ? 'ph-x-circle' : 'ph-check-circle';
+                    
+                    html += '    <div style="background: ' + bg + '; border: 1.5px solid ' + border + '; border-radius: 14px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">' +
+                            '      <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;">' +
+                            '        <i class="ph-fill ' + icon + '" style="font-size: 18px; color: ' + pillColor + '; flex-shrink: 0;"></i>' +
+                            '        <span style="font-weight: 750; font-size: 13.5px; color: var(--dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">' + item.name + '</span>' +
+                            '      </div>' +
+                            '      <span style="background: ' + pillBg + '; color: ' + pillColor + '; font-size: 10px; font-weight: 850; padding: 3.5px 8px; border-radius: 8px; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.2px;">' + item.expiry + '</span>' +
+                            '    </div>';
+                });
+                
+                html += '  </div>' +
+                        '</div>';
+            }
+            
+            showCustomAlert("Activated Packages", html, onOk);
+        }
+
         function handleStudentAuthenticationProcess() {
             const credMail = document.getElementById("inputStudentCredMail").value.trim().toLowerCase();
             const credPass = document.getElementById("inputStudentCredPass").value.trim();
 
             if (!credMail || !credPass) {
-                alert("Provide valid account login keys.");
+                showCustomAlert("Authentication Warning", "Provide valid account login keys.");
                 return;
             }
 
@@ -9364,10 +9592,13 @@
                     localStorage.setItem("_secured_active_aspirant", JSON.stringify(resData.user));
                     refreshStudentAccountProfileGate();
                     try { syncSavedQuestionsWithCloud("pull"); } catch(e){}
-                    alert("Login Approved! Premium materials are unlocked.");
-                    handleTabNavigation('home');
+                    showCustomAlert("Login Success", "Welcome back! " + (_studentLoggedInUser.name || "Aspirant") + " logged in successfully.", function() {
+                        showStudentLoginDetailsPopup(_studentLoggedInUser, function() {
+                            handleTabNavigation('home');
+                        });
+                    });
                 } else {
-                    alert("Invalid student credentials key pair. Try again or notify Prayas One operator.");
+                    showCustomAlert("Access Denied", "Invalid student credentials key pair. Try again or notify Prayas One operator.");
                 }
             })
             .catch(err => {
@@ -9383,10 +9614,13 @@
                     localStorage.setItem("_secured_active_aspirant", JSON.stringify(matchedStudent));
                     refreshStudentAccountProfileGate();
                     try { syncSavedQuestionsWithCloud("pull"); } catch(e){}
-                    alert("Login Approved! Premium materials are unlocked.");
-                    handleTabNavigation('home');
+                    showCustomAlert("Login Success", "Welcome back! " + (_studentLoggedInUser.name || "Aspirant") + " logged in successfully.", function() {
+                        showStudentLoginDetailsPopup(_studentLoggedInUser, function() {
+                            handleTabNavigation('home');
+                        });
+                    });
                 } else {
-                    alert("Invalid student credentials key pair. Try again or notify Prayas One operator.");
+                    showCustomAlert("Access Denied", "Invalid student credentials key pair. Try again or notify Prayas One operator.");
                 }
             });
         }
@@ -9395,8 +9629,9 @@
             localStorage.removeItem("_secured_active_aspirant");
             _studentLoggedInUser = null;
             refreshStudentAccountProfileGate();
-            alert("Secure session revoked. Standard premium limitations are re-locked.");
-            handleTabNavigation('home');
+            showCustomAlert("Logout Successful", "You have signed out successfully.", function() {
+                handleTabNavigation('home');
+            });
         }
 
         // Shared Telegram screenshot link
