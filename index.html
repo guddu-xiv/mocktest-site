@@ -236,6 +236,7 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"CDM and Simon Commission","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"CDM and Simon Commission"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Quit India Movement","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Quit India Movement"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Governor-General and Viceroy","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Governor-General and Viceroy"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Logical Analogy Quick Mock Exam","description":"Standard Analogy Test of Logical Reasoning.","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Analogy Practice Test"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
 
     
     <!-- Google Fonts Imports -->
@@ -2699,7 +2700,7 @@
     </style>
     <script>
         window.__studentAppChunkCount = 5;
-        window.__studentAppBuildId = "prayas_build_1783999076938_cacu5j4";
+        window.__studentAppBuildId = "prayas_build_1784016085833_r2yonmu";
     </script>
 </head>
 <body>
@@ -4653,10 +4654,14 @@
         function handleBuyNowClick(cat) {
             var catObj = cat;
             if (typeof cat === 'string') {
-                try {
-                    catObj = JSON.parse(cat);
-                } catch(e) {
-                    console.error("Error parsing category object in Buy Now", e);
+                var allCats = (DB.testCategories || []).concat(DB.pdfCategories || []);
+                catObj = allCats.find(function(c) { return c.id === cat; });
+                if (!catObj) {
+                    try {
+                        catObj = JSON.parse(cat);
+                    } catch(e) {
+                        console.error("Error parsing category object in Buy Now", e);
+                    }
                 }
             }
             if (!catObj) return;
@@ -5288,7 +5293,7 @@
         }
         
         // Define builder API server origin fallback for cross-origin local files
-        const _serverOrigin = "https://guddu-xiv.github.io";
+        const _serverOrigin = "https://ais-dev-4eprweepbbwn363s5vckyq-857699640070.asia-east1.run.app";
         function getApiUrl(route) {
             if (!_serverOrigin) return route;
             if (window.location.protocol === 'file:' || !window.location.host) {
@@ -5444,6 +5449,112 @@
         let _testIsPaused = false;
         let _serverTimeOffset = 0;
         let _studentLoggedInUser = null;
+        let _demoCategories = {};
+
+        function isDemoFreeTest(testId, rootCat) {
+            if (!rootCat || !testId) return false;
+            var firstTestId = null;
+            if (rootCat.test) {
+                firstTestId = rootCat.test.id;
+            } else if (rootCat.subCategories) {
+                for (var i = 0; i < rootCat.subCategories.length; i++) {
+                    var sub = rootCat.subCategories[i];
+                    if (sub.test) {
+                        firstTestId = sub.test.id;
+                        break;
+                    }
+                    if (sub.topics) {
+                        for (var j = 0; j < sub.topics.length; j++) {
+                            var top = sub.topics[j];
+                            if (top.test) {
+                                firstTestId = top.test.id;
+                                break;
+                            }
+                        }
+                    }
+                    if (firstTestId) break;
+                }
+            }
+            return firstTestId === testId;
+        }
+
+        function subHasDemoFreeTest(sub, rootCat) {
+            if (!rootCat || !sub) return false;
+            if (sub.test && isDemoFreeTest(sub.test.id, rootCat)) {
+                return true;
+            }
+            if (sub.topics) {
+                for (var i = 0; i < sub.topics.length; i++) {
+                    var top = sub.topics[i];
+                    if (top.test && isDemoFreeTest(top.test.id, rootCat)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function isDemoFreePdf(pdfId, rootCat) {
+            if (!rootCat || !pdfId) return false;
+            var firstPdfId = null;
+            if (rootCat.pdf) {
+                firstPdfId = rootCat.pdf.id;
+            } else if (rootCat.subCategories) {
+                for (var i = 0; i < rootCat.subCategories.length; i++) {
+                    var sub = rootCat.subCategories[i];
+                    if (sub.pdf) {
+                        firstPdfId = sub.pdf.id;
+                        break;
+                    }
+                    if (sub.topics) {
+                        for (var j = 0; j < sub.topics.length; j++) {
+                            var top = sub.topics[j];
+                            if (top.pdf) {
+                                firstPdfId = top.pdf.id;
+                                break;
+                            }
+                        }
+                    }
+                    if (firstPdfId) break;
+                }
+            }
+            return firstPdfId === pdfId;
+        }
+
+        function subHasDemoFreePdf(sub, rootCat) {
+            if (!rootCat || !sub) return false;
+            if (sub.pdf && isDemoFreePdf(sub.pdf.id, rootCat)) {
+                return true;
+            }
+            if (sub.topics) {
+                for (var i = 0; i < sub.topics.length; i++) {
+                    var top = sub.topics[i];
+                    if (top.pdf && isDemoFreePdf(top.pdf.id, rootCat)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function handleViewDemoClick(cat, type) {
+            var catObj = cat;
+            if (typeof cat === 'string') {
+                var allCats = (DB.testCategories || []).concat(DB.pdfCategories || []);
+                catObj = allCats.find(function(c) { return c.id === cat; });
+                if (!catObj) {
+                    try {
+                        catObj = JSON.parse(cat);
+                    } catch(e) {
+                        console.error("Error parsing category object in View Demo", e);
+                    }
+                }
+            }
+            if (!catObj) return;
+            _demoCategories[catObj.id] = true;
+            handleSelectCategoryNode(catObj, type);
+        }
+        window.handleViewDemoClick = handleViewDemoClick;
         let _isAutoSubmitting = false;
         let _hasActiveCouponGrant = null; // Stored voucher config
         let _activeCategoryName = "N/A";
@@ -6422,8 +6533,11 @@
                             }
                         } else {
                             var price = cat.paymentAmount || (DB && DB.social && DB.social.premiumPrice) || "₹49";
-                            statusBadgeHtml = '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #FFB800; color: #111111; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(255,184,0,0.15); white-space: nowrap;" onclick="event.stopPropagation(); handleBuyNowClick(' + JSON.stringify(cat).replace(/"/g, '&quot;') + ')">' +
+                            statusBadgeHtml = '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #FFB800; color: #111111; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(255,184,0,0.15); white-space: nowrap; font-family: Sahitya, serif;" onclick="event.stopPropagation(); handleBuyNowClick(\'' + cat.id + '\')">' +
                                               '            <i class="ph-bold ph-shopping-cart-simple" style="font-size: 9.5px;"></i> ' + price + ' / Buy Now' +
+                                              '        </span>' +
+                                              '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #3498db; color: #ffffff; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(52,152,219,0.15); white-space: nowrap; margin-left: 4px; font-family: Sahitya, serif;" onclick="event.stopPropagation(); handleViewDemoClick(\'' + cat.id + '\', \'test\')">' +
+                                              '            <i class="ph-bold ph-eye" style="font-size: 9.5px;"></i> View Demo' +
                                               '        </span>';
                         }
                     } else {
@@ -6433,7 +6547,7 @@
                                           '        </span>';
                     }
 
-                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: nowrap; max-width: 100%;">' +
+                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: wrap; max-width: 100%;">' +
                                   '        <span style="display: inline-flex; align-items: center; gap: 2px; font-size: 9px; font-weight: 850; color: var(--dark); white-space: nowrap;">' +
                                   '            <i class="ph-bold ph-question" style="color: #ff6b35; font-size: 11px;"></i> ' + totalQFormatted + ' MCQ' +
                                   '        </span>' +
@@ -6514,8 +6628,11 @@
                             }
                         } else {
                             var price = cat.paymentAmount || (DB && DB.social && DB.social.premiumPrice) || "₹49";
-                            pdfStatusBadgeHtml = '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #FFB800; color: #111111; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(255,184,0,0.15); white-space: nowrap;" onclick="event.stopPropagation(); handleBuyNowClick(' + JSON.stringify(cat).replace(/"/g, '&quot;') + ')">' +
+                            pdfStatusBadgeHtml = '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #FFB800; color: #111111; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(255,184,0,0.15); white-space: nowrap; font-family: Sahitya, serif;" onclick="event.stopPropagation(); handleBuyNowClick(\'' + cat.id + '\')">' +
                                                  '            <i class="ph-bold ph-shopping-cart-simple" style="font-size: 9.5px;"></i> ' + price + ' / Buy Now' +
+                                                 '        </span>' +
+                                                 '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #3498db; color: #ffffff; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(52,152,219,0.15); white-space: nowrap; margin-left: 4px; font-family: Sahitya, serif;" onclick="event.stopPropagation(); handleViewDemoClick(\'' + cat.id + '\', \'pdf\')">' +
+                                                 '            <i class="ph-bold ph-eye" style="font-size: 9.5px;"></i> View Demo' +
                                                  '        </span>';
                         }
                     } else {
@@ -6524,7 +6641,7 @@
                                              '        </span>';
                     }
 
-                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: nowrap; max-width: 100%;">' +
+                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: wrap; max-width: 100%;">' +
                                   '        <span style="display: inline-flex; align-items: center; gap: 2.5px; font-size: 9.5px; font-weight: 850; color: var(--dark); white-space: nowrap;">' +
                                   '            <i class="ph-bold ph-file-pdf" style="color: #e74c3c; font-size: 11px;"></i> ' + totalFiles + ' PDFs' +
                                   '        </span>' +
@@ -6925,8 +7042,12 @@
         function handleSelectCategoryNode(cat, type) {
             // Check category lock first
             if (cat.isPaid && !isCategoryUnlocked(cat)) {
-                showCategoryPaymentScreen(cat);
-                return;
+                if (_demoCategories[cat.id]) {
+                    // Bypass category block for entering!
+                } else {
+                    showCategoryPaymentScreen(cat);
+                    return;
+                }
             }
 
             _activeCategoryName = cat.name;
@@ -6979,7 +7100,26 @@
                 directCard.className = "outline-item-card";
                 directCard.style.border = "2px dashed var(--primary)";
                 directCard.style.background = "rgba(255, 107, 53, 0.05)";
+                
+                const label = type === 'test' ? "🏆 Launch Category Exam" : "📁 View Category PDF Document";
+                const desc = type === 'test' ? "Primary category-level test assessment" : "Primary category-level study manual";
+                const icon = type === 'test' ? "ph ph-sparkle" : "ph ph-file-pdf";
+                
+                var isDemoMode = _demoCategories[cat.id];
+                var isFreeTest = false;
+                if (isDemoMode) {
+                    if (type === 'test' && cat.test && isDemoFreeTest(cat.test.id, cat)) {
+                        isFreeTest = true;
+                    } else if (type === 'pdf' && cat.pdf && isDemoFreePdf(cat.pdf.id, cat)) {
+                        isFreeTest = true;
+                    }
+                }
+
                 directCard.onclick = () => {
+                    if (isDemoMode && !isFreeTest) {
+                        showCategoryPaymentScreen(cat);
+                        return;
+                    }
                     if (cat.test && !isItemScheduledVisible(cat.test)) {
                         alert("This test is scheduled to start at: " + new Date(cat.test.scheduledAt).toLocaleString());
                         return;
@@ -6991,19 +7131,28 @@
                     handleVerifyDirectMeta(cat, type);
                 };
                 
-                const label = type === 'test' ? "🏆 Launch Category Exam" : "📁 View Category PDF Document";
-                const desc = type === 'test' ? "Primary category-level test assessment" : "Primary category-level study manual";
-                const icon = type === 'test' ? "ph ph-sparkle" : "ph ph-file-pdf";
-                
+                var rightIconHtml = '<i class="ph ph-play" style="color: var(--primary);"></i>';
+                var badgeLabelHtml = '<h4 class="outline-item-title" style="color: var(--primary); font-weight:800;">' + label + '</h4>';
+                if (isDemoMode) {
+                    if (isFreeTest) {
+                        badgeLabelHtml = '<h4 class="outline-item-title" style="color: var(--primary); font-weight:800; display: flex; align-items: center; gap: 6px;">' +
+                                         '    <span style="display: inline-flex; align-items: center; gap: 4px; color: #2ecc71; font-size: 9.5px; font-weight: 850; background: rgba(46, 204, 113, 0.08); padding: 1.5px 6px; border-radius: 6px; border: 1px solid rgba(46, 204, 113, 0.15); font-family: Sahitya, serif;"><i class="ph-bold ph-gift" style="font-size: 10px;"></i> Free Demo</span>' +
+                                         '    ' + label +
+                                         '</h4>';
+                    } else {
+                        rightIconHtml = '<i class="ph-fill ph-lock" style="color: #ef4444; font-size: 18px;"></i>';
+                    }
+                }
+
                 directCard.innerHTML = 
                     '<div class="outline-item-img" style="display:flex;align-items:center;justify-content:center; background: var(--primary); color: white;">' +
                     '    <i class="' + icon + '" style="font-size:24px;"></i>' +
                     '</div>' +
                     '<div class="outline-item-details">' +
-                    '    <h4 class="outline-item-title" style="color: var(--primary); font-weight:800;">' + label + '</h4>' +
+                    '    ' + badgeLabelHtml +
                     '    <p class="outline-item-subtitle">' + desc + '</p>' +
                     '</div>' +
-                    '<i class="ph ph-play" style="color: var(--primary);"></i>';
+                    rightIconHtml;
                 container.appendChild(directCard);
             }
 
@@ -7023,9 +7172,23 @@
             }
 
             visibleSubs.forEach((sub) => {
+                var isDemoMode = _demoCategories[cat.id];
+                var isFreeTestSub = false;
+                if (isDemoMode) {
+                    if (type === 'test' && subHasDemoFreeTest(sub, cat)) {
+                        isFreeTestSub = true;
+                    } else if (type === 'pdf' && subHasDemoFreePdf(sub, cat)) {
+                        isFreeTestSub = true;
+                    }
+                }
+
                 const card = document.createElement("div");
                 card.className = "outline-item-card";
-                card.onclick = () => handleSelectSubcategoryNode(sub, type);
+                if (isDemoMode && !isFreeTestSub) {
+                    card.onclick = () => showCategoryPaymentScreen(cat);
+                } else {
+                    card.onclick = () => handleSelectSubcategoryNode(sub, type);
+                }
                 var initSrc = (window.__imgCache && window.__imgCache[sub.image]) || sub.image || "";
                 
                 var subHtml = "";
@@ -7125,11 +7288,24 @@
                                   '    </div>';
                 }
 
+                var labelHtml = '<h4 class="outline-item-title">' + sub.name + '</h4>';
+                var rightIconHtml = '<i class="ph ph-caret-right" style="color: var(--primary);"></i>';
+                if (isDemoMode) {
+                    if (isFreeTestSub) {
+                        labelHtml = '<h4 class="outline-item-title" style="display: flex; align-items: center; gap: 6px;">' +
+                                    '    <span style="display: inline-flex; align-items: center; gap: 4px; color: #2ecc71; font-size: 9px; font-weight: 850; background: rgba(46, 204, 113, 0.08); padding: 1.5px 6px; border-radius: 6px; border: 1px solid rgba(46, 204, 113, 0.15); font-family: Sahitya, serif;"><i class="ph-bold ph-gift" style="font-size: 10px;"></i> Free Demo</span>' +
+                                    '    ' + sub.name +
+                                    '</h4>';
+                    } else {
+                        rightIconHtml = '<i class="ph-fill ph-lock" style="color: #ef4444; font-size: 18px; margin-right: 4px;"></i>';
+                    }
+                }
+
                 subHtml += '<div class="outline-item-details">';
-                subHtml += '    <h4 class="outline-item-title">' + sub.name + '</h4>';
+                subHtml += '    ' + labelHtml;
                 subHtml += detailsHtml;
                 subHtml += '</div>';
-                subHtml += '<i class="ph ph-caret-right" style="color: var(--primary);"></i>';
+                subHtml += rightIconHtml;
                 
                 card.innerHTML = subHtml;
                 container.appendChild(card);
@@ -7186,7 +7362,27 @@
                 directCard.className = "outline-item-card";
                 directCard.style.border = "2px dashed var(--primary)";
                 directCard.style.background = "rgba(255, 107, 53, 0.05)";
+                
+                const label = type === 'test' ? "🏆 Launch Sub-category Exam" : "📁 View Sub-category PDF Document";
+                const desc = type === 'test' ? "Primary subcategory-level test assessment" : "Primary subcategory-level study manual";
+                const icon = type === 'test' ? "ph ph-sparkle" : "ph ph-file-pdf";
+                
+                var rootCat = _activeCategoryNodeForUrl;
+                var isDemoMode = rootCat && _demoCategories[rootCat.id];
+                var isFreeTest = false;
+                if (isDemoMode) {
+                    if (type === 'test' && sub.test && isDemoFreeTest(sub.test.id, rootCat)) {
+                        isFreeTest = true;
+                    } else if (type === 'pdf' && sub.pdf && isDemoFreePdf(sub.pdf.id, rootCat)) {
+                        isFreeTest = true;
+                    }
+                }
+
                 directCard.onclick = () => {
+                    if (isDemoMode && !isFreeTest) {
+                        showCategoryPaymentScreen(rootCat);
+                        return;
+                    }
                     if (sub.test && !isItemScheduledVisible(sub.test)) {
                         alert("This test is scheduled to start at: " + new Date(sub.test.scheduledAt).toLocaleString());
                         return;
@@ -7198,19 +7394,28 @@
                     handleVerifyDirectMeta(sub, type);
                 };
                 
-                const label = type === 'test' ? "🏆 Launch Sub-category Exam" : "📁 View Sub-category PDF Document";
-                const desc = type === 'test' ? "Primary subcategory-level test assessment" : "Primary subcategory-level study manual";
-                const icon = type === 'test' ? "ph ph-sparkle" : "ph ph-file-pdf";
-                
+                var rightIconHtml = '<i class="ph ph-play" style="color: var(--primary);"></i>';
+                var badgeLabelHtml = '<h4 class="outline-item-title" style="color: var(--primary); font-weight:800;">' + label + '</h4>';
+                if (isDemoMode) {
+                    if (isFreeTest) {
+                        badgeLabelHtml = '<h4 class="outline-item-title" style="color: var(--primary); font-weight:800; display: flex; align-items: center; gap: 6px;">' +
+                                         '    <span style="display: inline-flex; align-items: center; gap: 4px; color: #2ecc71; font-size: 9.5px; font-weight: 850; background: rgba(46, 204, 113, 0.08); padding: 1.5px 6px; border-radius: 6px; border: 1px solid rgba(46, 204, 113, 0.15); font-family: Sahitya, serif;"><i class="ph-bold ph-gift" style="font-size: 10px;"></i> Free Demo</span>' +
+                                         '    ' + label +
+                                         '</h4>';
+                    } else {
+                        rightIconHtml = '<i class="ph-fill ph-lock" style="color: #ef4444; font-size: 18px;"></i>';
+                    }
+                }
+
                 directCard.innerHTML = 
                     '<div class="outline-item-img" style="display:flex;align-items:center;justify-content:center; background: var(--primary); color: white;">' +
                     '    <i class="' + icon + '" style="font-size:24px;"></i>' +
                     '</div>' +
                     '<div class="outline-item-details">' +
-                    '    <h4 class="outline-item-title" style="color: var(--primary); font-weight:800;">' + label + '</h4>' +
+                    '    ' + badgeLabelHtml +
                     '    <p class="outline-item-subtitle">' + desc + '</p>' +
                     '</div>' +
-                    '<i class="ph ph-play" style="color: var(--primary);"></i>';
+                    rightIconHtml;
                 container.appendChild(directCard);
             }
 
@@ -7230,9 +7435,21 @@
             }
 
             visibleTopics.forEach((topic) => {
+                var isDemoMode = _activeCategoryNodeForUrl && _demoCategories[_activeCategoryNodeForUrl.id];
+                var isFreeTest = false;
+                if (isDemoMode) {
+                    if (type === 'test' && topic.test && isDemoFreeTest(topic.test.id, _activeCategoryNodeForUrl)) {
+                        isFreeTest = true;
+                    }
+                }
+
                 const card = document.createElement("div");
                 card.className = "outline-item-card";
-                card.onclick = () => handleSelectTopicNode(topic, type);
+                if (isDemoMode && !isFreeTest) {
+                    card.onclick = () => showCategoryPaymentScreen(_activeCategoryNodeForUrl);
+                } else {
+                    card.onclick = () => handleSelectTopicNode(topic, type);
+                }
 
                 let iconClass = "ph ph-exam";
                 if (type === 'pdf') {
@@ -7292,11 +7509,33 @@
                                   '    </div>';
                 }
 
+                var isDemoMode = _activeCategoryNodeForUrl && _demoCategories[_activeCategoryNodeForUrl.id];
+                var isFreeTest = false;
+                if (isDemoMode) {
+                    if (type === 'test' && topic.test && isDemoFreeTest(topic.test.id, _activeCategoryNodeForUrl)) {
+                        isFreeTest = true;
+                    } else if (type === 'pdf' && topic.pdf && isDemoFreePdf(topic.pdf.id, _activeCategoryNodeForUrl)) {
+                        isFreeTest = true;
+                    }
+                }
+
                 topicHtml += '<div class="outline-item-details">';
-                topicHtml += '    <h4 class="outline-item-title">' + topic.name + '</h4>';
+                if (isDemoMode && isFreeTest) {
+                    topicHtml += '    <h4 class="outline-item-title" style="display: flex; align-items: center; gap: 6px;">' +
+                                 '        <span style="display: inline-flex; align-items: center; gap: 4px; color: #2ecc71; font-size: 9.5px; font-weight: 850; background: rgba(46, 204, 113, 0.08); padding: 1.5px 6px; border-radius: 6px; border: 1px solid rgba(46, 204, 113, 0.15); font-family: Sahitya, serif;"><i class="ph-bold ph-gift" style="font-size: 10px;"></i> Free Demo</span>' +
+                                 '        ' + topic.name +
+                                 '    </h4>';
+                } else {
+                    topicHtml += '    <h4 class="outline-item-title">' + topic.name + '</h4>';
+                }
                 topicHtml += detailsHtml;
                 topicHtml += '</div>';
-                topicHtml += '<i class="ph ph-caret-right" style="color: var(--primary);"></i>';
+
+                if (isDemoMode && !isFreeTest) {
+                    topicHtml += '<i class="ph-fill ph-lock" style="color: #ef4444; font-size: 18px; margin-right: 4px;"></i>';
+                } else {
+                    topicHtml += '<i class="ph ph-caret-right" style="color: var(--primary);"></i>';
+                }
 
                 card.innerHTML = topicHtml;
                 container.appendChild(card);
@@ -7342,8 +7581,14 @@
         function handleVerifyDirectMeta(node, type) {
             var rootCat = findRootCategoryForNode(node.id, type);
             if (rootCat && rootCat.isPaid && !isCategoryUnlocked(rootCat)) {
-                showCategoryPaymentScreen(rootCat);
-                return;
+                if (_demoCategories[rootCat.id] && type === 'test' && node.test && isDemoFreeTest(node.test.id, rootCat)) {
+                    // Bypass for the free demo test!
+                } else if (_demoCategories[rootCat.id] && type === 'pdf' && node.pdf && isDemoFreePdf(node.pdf.id, rootCat)) {
+                    // Bypass for the free demo pdf!
+                } else {
+                    showCategoryPaymentScreen(rootCat);
+                    return;
+                }
             }
             if (!isItemVisibleToStudent(node)) {
                 showCustomAlert("Resource Restricted", "This resource is restricted or not currently available for your account.");
@@ -7627,8 +7872,12 @@
         async function handleBeginTestInitiation() {
             var testRootCat = _activeTest ? findRootCategoryForNode(_activeTest.id, 'test') : null;
             if (testRootCat && testRootCat.isPaid && !isCategoryUnlocked(testRootCat)) {
-                showCategoryPaymentScreen(testRootCat);
-                return;
+                if (_demoCategories[testRootCat.id] && _activeTest && isDemoFreeTest(_activeTest.id, testRootCat)) {
+                    // Bypass for the free demo test!
+                } else {
+                    showCategoryPaymentScreen(testRootCat);
+                    return;
+                }
             }
             // If the test has split questions, make sure they are fetched and populated first!
             if (_activeTest && _activeTest.hasSplitQuestions && (!_activeTest.questionsEn || _activeTest.questionsEn.length === 0) && (!_activeTest.questionsHi || _activeTest.questionsHi.length === 0)) {
@@ -7700,7 +7949,11 @@
             var isGatedByCat = false;
             var testRootCat = _activeTest ? findRootCategoryForNode(_activeTest.id, 'test') : null;
             if (testRootCat && testRootCat.isPaid && !isCategoryUnlocked(testRootCat)) {
-                isGatedByCat = true;
+                if (_demoCategories[testRootCat.id] && _activeTest && isDemoFreeTest(_activeTest.id, testRootCat)) {
+                    isGatedByCat = false; // Bypass for free demo test!
+                } else {
+                    isGatedByCat = true;
+                }
             }
             if ((_activeTest.isPaid || isGatedByCat) && !_hasActiveCouponGrant) {
                 if (isGatedByCat) {
@@ -10043,18 +10296,16 @@
                         console.log("Database loaded features instantly from local cache!");
                         try { ensurePaymentQrCached(); } catch(e){}
                         
-                        // If build ID matches current, skip external fetch completely
-                        if (currentBuildId && cachedBuildId && currentBuildId === cachedBuildId) {
-                            console.log("Cached configuration is up to date (" + currentBuildId + ").");
+                        // If build ID matches current, we still run the background fetch to dynamically synchronize updates without needing a new HTML file download.
+                        try {
                             finishPortalInitialization();
-                            return;
+                        } catch(err_init) {
+                            console.error("Error doing hot start:", err_init);
+                        }
+                        if (currentBuildId && cachedBuildId && currentBuildId === cachedBuildId) {
+                            console.log("Cached configuration is loaded instantly (" + currentBuildId + "). Background synchronization starting to look for fresh database updates...");
                         } else {
                             console.log("Updating configuration segments (" + currentBuildId + ")...");
-                            try {
-                                finishPortalInitialization();
-                            } catch(err_init) {
-                                console.error("Error doing hot start:", err_init);
-                            }
                         }
                     }
                 } catch (cacheErr) {
@@ -10083,13 +10334,16 @@
                 var loadedChunks = new Array(window.__studentAppChunkCount);
                 var fetchedCount = 0;
                 var promises = [];
-                var buildQuery = window.__studentAppBuildId ? "?v=" + encodeURIComponent(window.__studentAppBuildId) : "";
+                // Use a rounded-minute cache buster (every 60s) so CDNs and browsers bypass caching and always fetch the newly updated database segments.
+                var minuteBuster = Math.floor(Date.now() / 60000);
+                var buildQuery = "?v=" + encodeURIComponent(window.__studentAppBuildId || "") + "&cb=" + minuteBuster;
 
                 for (var i = 0; i < window.__studentAppChunkCount; i++) {
                     (function(index) {
                         var filename = "config_part_" + (index + 1) + ".txt";
                         var r2Url = _getRegistryPath(filename) + buildQuery;
-                        var fetchPromise = fetch(r2Url, { cache: "default" })
+                        // Use no-cache to force validating the file freshness directly against storage
+                        var fetchPromise = fetch(r2Url, { cache: "no-cache" })
                             .then(function(res) {
                                 if (!res.ok) {
                                     throw new Error("HTTP " + res.status + " retrieving " + filename);
@@ -10136,6 +10390,16 @@
                                 try { launchSlidersCarousel(); } catch(e){}
                                 try { renderNoticesScrollingBoard(); } catch(e){}
                                 try { refreshStudentAccountProfileGate(); } catch(e){}
+                                try {
+                                    var activeTab = localStorage.getItem("_student_active_tab_id") || "home";
+                                    if (activeTab === "tests") {
+                                        renderCategorySelectionScreen('test');
+                                    } else if (activeTab === "pdfs") {
+                                        renderCategorySelectionScreen('pdf');
+                                    } else if (activeTab === "home") {
+                                        renderSavedQuestionsBox();
+                                    }
+                                } catch(e){}
                             }
                         } catch (e) {
                             console.error("Could not parse freshly compiled background copy:", e);
