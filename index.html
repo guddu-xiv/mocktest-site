@@ -331,16 +331,6 @@
             opacity: 0.95 !important;
         }
 
-        /* High Contrast Guarantee: White-on-Yellow is extremely hard to read. Any element with a yellow background must have dark black text. */
-        [style*="background: var(--primary)"],
-        [style*="background:var(--primary)"],
-        [style*="background: #FFB800"],
-        [style*="background:#FFB800"],
-        [style*="background: #ffb800"],
-        [style*="background:#ffb800"] {
-            color: #111111 !important;
-        }
-
         /* Dark Mode Theme Overrides */
         body.dark-mode {
             background-color: #111111 !important;
@@ -355,117 +345,6 @@
             --tap-active-bg: rgba(255, 184, 0, 0.22);
             background-color: #111111 !important;
             color: #EFECE6 !important;
-        }
-
-        /* Target inline text colors and automatically brighten them in dark-mode */
-        .dark-mode [style*="color: #1e293b"],
-        .dark-mode [style*="color:#1e293b"],
-        .dark-mode [style*="color: #475569"],
-        .dark-mode [style*="color:#475569"],
-        .dark-mode [style*="color: #334155"],
-        .dark-mode [style*="color:#334155"],
-        .dark-mode [style*="color: #0f172a"],
-        .dark-mode [style*="color:#0f172a"],
-        .dark-mode [style*="color: #64748b"],
-        .dark-mode [style*="color:#64748b"],
-        .dark-mode [style*="color: #57606f"],
-        .dark-mode [style*="color:#57606f"] {
-            color: #EFECE6 !important;
-        }
-
-        .dark-mode [style*="color: #b45309"],
-        .dark-mode [style*="color:#b45309"] {
-            color: #fbbf24 !important;
-        }
-
-        /* Dynamic Theme and Visibility Guardians for specific inline styles in dark-mode */
-        .dark-mode div[style*="background: #ffffff"],
-        .dark-mode div[style*="background:#ffffff"],
-        .dark-mode div[style*="background: #fff"],
-        .dark-mode div[style*="background:#fff"],
-        .dark-mode div[style*="background-color: #ffffff"],
-        .dark-mode div[style*="background-color:#ffffff"],
-        .dark-mode div[style*="background-color: #fff"],
-        .dark-mode div[style*="background-color:#fff"] {
-            background-color: #181818 !important;
-            background: #181818 !important;
-            color: #EFECE6 !important;
-            border-color: #2A2A28 !important;
-        }
-
-        .dark-mode div[style*="background: #f8fafc"],
-        .dark-mode div[style*="background:#f8fafc"],
-        .dark-mode div[style*="background-color: #f8fafc"],
-        .dark-mode div[style*="background-color:#f8fafc"],
-        .dark-mode div[style*="background: #f1f5f9"],
-        .dark-mode div[style*="background:#f1f5f9"],
-        .dark-mode div[style*="background-color: #f1f5f9"],
-        .dark-mode div[style*="background-color:#f1f5f9"],
-        .dark-mode div[style*="background: #eef1f6"],
-        .dark-mode div[style*="background:#eef1f6"],
-        .dark-mode div[style*="background: #fafafa"],
-        .dark-mode div[style*="background:#fafafa"] {
-            background-color: #1c1c1e !important;
-            background: #1c1c1e !important;
-            color: #EFECE6 !important;
-            border-color: #2A2A28 !important;
-        }
-
-        .dark-mode div[style*="background: #fffbeb"],
-        .dark-mode div[style*="background:#fffbeb"],
-        .dark-mode div[style*="background: #fffde7"],
-        .dark-mode div[style*="background:#fffde7"],
-        .dark-mode div[style*="background: #fef3c7"],
-        .dark-mode div[style*="background:#fef3c7"] {
-            background-color: #241d13 !important;
-            background: #241d13 !important;
-            color: #fbbf24 !important;
-            border-color: #b45309 !important;
-        }
-
-        .dark-mode div[style*="background: #e1f5fe"],
-        .dark-mode div[style*="background:#e1f5fe"] {
-            background-color: #0c243c !important;
-            background: #0c243c !important;
-            color: #93c5fd !important;
-            border-color: #1e3a5f !important;
-        }
-
-        .dark-mode div[style*="background: #f1f2f6"],
-        .dark-mode div[style*="background:#f1f2f6"] {
-            background-color: #1e1e1e !important;
-            background: #1e1e1e !important;
-            color: #EFECE6 !important;
-            border-color: #2A2A28 !important;
-        }
-
-        .dark-mode div[style*="background: #fef2f2"],
-        .dark-mode div[style*="background:#fef2f2"],
-        .dark-mode div[style*="background: #fee2e2"],
-        .dark-mode div[style*="background:#fee2e2"] {
-            background-color: #441c1c !important;
-            background: #441c1c !important;
-            color: #fca5a5 !important;
-            border-color: #ef4444 !important;
-        }
-
-        /* Button adaptive overrides in dark mode */
-        .dark-mode button {
-            background-color: #1c1c1e !important;
-            color: #ffffff !important;
-            border-color: #3A3A38 !important;
-        }
-        
-        .dark-mode button.btn-fill-prime,
-        .dark-mode .btn-fill-prime,
-        .dark-mode button[style*="background: var(--primary)"],
-        .dark-mode button[style*="background:var(--primary)"],
-        .dark-mode button[style*="background: #FFB800"],
-        .dark-mode button[style*="background:#FFB800"] {
-            background-color: #FFB800 !important;
-            background: #FFB800 !important;
-            color: #111111 !important;
-            border-color: #FFB800 !important;
         }
 
         /* Comprehensive Day/Night Visibility Guardians */
@@ -1932,43 +1811,35 @@
 
         /* Professional fixed background watermark */
         .watermark-container {
+            display: none !important;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            display: flex !important;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             pointer-events: none;
-            opacity: 0.07;
+            opacity: 0.05;
             z-index: 1;
             width: 100%;
             text-align: center;
         }
 
         .watermark-img {
-            width: 180px;
-            height: 180px;
-            object-fit: contain;
-            border-radius: 24px;
-            margin-bottom: 15px;
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 12px;
         }
 
         .watermark-text {
-            font-size: 26px;
-            font-weight: 900;
-            letter-spacing: 3px;
+            font-size: 32px;
+            font-weight: 950;
+            letter-spacing: 4px;
             color: var(--dark);
-            text-transform: uppercase;
-        }
-
-        body.dark-mode .watermark-text {
-            color: #ffffff !important;
-        }
-
-        body.dark-mode .watermark-container {
-            opacity: 0.05 !important;
         }
 
         /* Exam questions container */
@@ -2828,7 +2699,7 @@
     </style>
     <script>
         window.__studentAppChunkCount = 5;
-        window.__studentAppBuildId = "prayas_build_1784042079441_8kongwk";
+        window.__studentAppBuildId = "prayas_build_1784073377251_3gipwrh";
     </script>
 </head>
 <body>
@@ -4782,14 +4653,10 @@
         function handleBuyNowClick(cat) {
             var catObj = cat;
             if (typeof cat === 'string') {
-                var allCats = (DB.testCategories || []).concat(DB.pdfCategories || []);
-                catObj = allCats.find(function(c) { return c.id === cat; });
-                if (!catObj) {
-                    try {
-                        catObj = JSON.parse(cat);
-                    } catch(e) {
-                        console.error("Error parsing category object in Buy Now", e);
-                    }
+                try {
+                    catObj = JSON.parse(cat);
+                } catch(e) {
+                    console.error("Error parsing category object in Buy Now", e);
                 }
             }
             if (!catObj) return;
@@ -5421,7 +5288,7 @@
         }
         
         // Define builder API server origin fallback for cross-origin local files
-        const _serverOrigin = "https://ais-dev-4eprweepbbwn363s5vckyq-857699640070.asia-east1.run.app";
+        const _serverOrigin = "https://guddu-xiv.github.io";
         function getApiUrl(route) {
             if (!_serverOrigin) return route;
             if (window.location.protocol === 'file:' || !window.location.host) {
@@ -5577,112 +5444,6 @@
         let _testIsPaused = false;
         let _serverTimeOffset = 0;
         let _studentLoggedInUser = null;
-        let _demoCategories = {};
-
-        function isDemoFreeTest(testId, rootCat) {
-            if (!rootCat || !testId) return false;
-            var firstTestId = null;
-            if (rootCat.test) {
-                firstTestId = rootCat.test.id;
-            } else if (rootCat.subCategories) {
-                for (var i = 0; i < rootCat.subCategories.length; i++) {
-                    var sub = rootCat.subCategories[i];
-                    if (sub.test) {
-                        firstTestId = sub.test.id;
-                        break;
-                    }
-                    if (sub.topics) {
-                        for (var j = 0; j < sub.topics.length; j++) {
-                            var top = sub.topics[j];
-                            if (top.test) {
-                                firstTestId = top.test.id;
-                                break;
-                            }
-                        }
-                    }
-                    if (firstTestId) break;
-                }
-            }
-            return firstTestId === testId;
-        }
-
-        function subHasDemoFreeTest(sub, rootCat) {
-            if (!rootCat || !sub) return false;
-            if (sub.test && isDemoFreeTest(sub.test.id, rootCat)) {
-                return true;
-            }
-            if (sub.topics) {
-                for (var i = 0; i < sub.topics.length; i++) {
-                    var top = sub.topics[i];
-                    if (top.test && isDemoFreeTest(top.test.id, rootCat)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        function isDemoFreePdf(pdfId, rootCat) {
-            if (!rootCat || !pdfId) return false;
-            var firstPdfId = null;
-            if (rootCat.pdf) {
-                firstPdfId = rootCat.pdf.id;
-            } else if (rootCat.subCategories) {
-                for (var i = 0; i < rootCat.subCategories.length; i++) {
-                    var sub = rootCat.subCategories[i];
-                    if (sub.pdf) {
-                        firstPdfId = sub.pdf.id;
-                        break;
-                    }
-                    if (sub.topics) {
-                        for (var j = 0; j < sub.topics.length; j++) {
-                            var top = sub.topics[j];
-                            if (top.pdf) {
-                                firstPdfId = top.pdf.id;
-                                break;
-                            }
-                        }
-                    }
-                    if (firstPdfId) break;
-                }
-            }
-            return firstPdfId === pdfId;
-        }
-
-        function subHasDemoFreePdf(sub, rootCat) {
-            if (!rootCat || !sub) return false;
-            if (sub.pdf && isDemoFreePdf(sub.pdf.id, rootCat)) {
-                return true;
-            }
-            if (sub.topics) {
-                for (var i = 0; i < sub.topics.length; i++) {
-                    var top = sub.topics[i];
-                    if (top.pdf && isDemoFreePdf(top.pdf.id, rootCat)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        function handleViewDemoClick(cat, type) {
-            var catObj = cat;
-            if (typeof cat === 'string') {
-                var allCats = (DB.testCategories || []).concat(DB.pdfCategories || []);
-                catObj = allCats.find(function(c) { return c.id === cat; });
-                if (!catObj) {
-                    try {
-                        catObj = JSON.parse(cat);
-                    } catch(e) {
-                        console.error("Error parsing category object in View Demo", e);
-                    }
-                }
-            }
-            if (!catObj) return;
-            _demoCategories[catObj.id] = true;
-            handleSelectCategoryNode(catObj, type);
-        }
-        window.handleViewDemoClick = handleViewDemoClick;
         let _isAutoSubmitting = false;
         let _hasActiveCouponGrant = null; // Stored voucher config
         let _activeCategoryName = "N/A";
@@ -6540,17 +6301,6 @@
             const targetCategories = (type === 'test' ? DB.testCategories : DB.pdfCategories) || [];
             const visibleCategories = targetCategories.filter(isItemVisibleToStudent);
 
-            // Sort visibleCategories: Unlocked paid categories at the top, then free, then locked paid
-            visibleCategories.sort(function(a, b) {
-                var getRank = function(cat) {
-                    if (cat.isPaid) {
-                        return isCategoryUnlocked(cat) ? 1 : 3;
-                    }
-                    return 2; // Free
-                };
-                return getRank(a) - getRank(b);
-            });
-
             if (visibleCategories.length === 0) {
                 container.innerHTML = '<div class="coming-soon-box">No resource catalogs configured.</div>';
                 return;
@@ -6672,11 +6422,8 @@
                             }
                         } else {
                             var price = cat.paymentAmount || (DB && DB.social && DB.social.premiumPrice) || "₹49";
-                            statusBadgeHtml = '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #FFB800; color: #111111; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(255,184,0,0.15); white-space: nowrap; font-family: Sahitya, serif;" onclick="event.stopPropagation(); handleBuyNowClick(\'' + cat.id + '\')">' +
+                            statusBadgeHtml = '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #FFB800; color: #111111; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(255,184,0,0.15); white-space: nowrap;" onclick="event.stopPropagation(); handleBuyNowClick(' + JSON.stringify(cat).replace(/"/g, '&quot;') + ')">' +
                                               '            <i class="ph-bold ph-shopping-cart-simple" style="font-size: 9.5px;"></i> ' + price + ' / Buy Now' +
-                                              '        </span>' +
-                                              '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #3498db; color: #ffffff; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(52,152,219,0.15); white-space: nowrap; margin-left: 4px; font-family: Sahitya, serif;" onclick="event.stopPropagation(); handleViewDemoClick(\'' + cat.id + '\', \'test\')">' +
-                                              '            <i class="ph-bold ph-eye" style="font-size: 9.5px;"></i> View Demo' +
                                               '        </span>';
                         }
                     } else {
@@ -6686,7 +6433,7 @@
                                           '        </span>';
                     }
 
-                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: wrap; max-width: 100%;">' +
+                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: nowrap; max-width: 100%;">' +
                                   '        <span style="display: inline-flex; align-items: center; gap: 2px; font-size: 9px; font-weight: 850; color: var(--dark); white-space: nowrap;">' +
                                   '            <i class="ph-bold ph-question" style="color: #ff6b35; font-size: 11px;"></i> ' + totalQFormatted + ' MCQ' +
                                   '        </span>' +
@@ -6767,11 +6514,8 @@
                             }
                         } else {
                             var price = cat.paymentAmount || (DB && DB.social && DB.social.premiumPrice) || "₹49";
-                            pdfStatusBadgeHtml = '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #FFB800; color: #111111; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(255,184,0,0.15); white-space: nowrap; font-family: Sahitya, serif;" onclick="event.stopPropagation(); handleBuyNowClick(\'' + cat.id + '\')">' +
+                            pdfStatusBadgeHtml = '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #FFB800; color: #111111; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(255,184,0,0.15); white-space: nowrap;" onclick="event.stopPropagation(); handleBuyNowClick(' + JSON.stringify(cat).replace(/"/g, '&quot;') + ')">' +
                                                  '            <i class="ph-bold ph-shopping-cart-simple" style="font-size: 9.5px;"></i> ' + price + ' / Buy Now' +
-                                                 '        </span>' +
-                                                 '        <span style="display: inline-flex; align-items: center; gap: 3px; background: #3498db; color: #ffffff; padding: 1.5px 5.5px; border-radius: 4px; font-weight: 900; cursor: pointer; font-size: 9px; box-shadow: 0 1.5px 4px rgba(52,152,219,0.15); white-space: nowrap; margin-left: 4px; font-family: Sahitya, serif;" onclick="event.stopPropagation(); handleViewDemoClick(\'' + cat.id + '\', \'pdf\')">' +
-                                                 '            <i class="ph-bold ph-eye" style="font-size: 9.5px;"></i> View Demo' +
                                                  '        </span>';
                         }
                     } else {
@@ -6780,7 +6524,7 @@
                                              '        </span>';
                     }
 
-                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: wrap; max-width: 100%;">' +
+                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: nowrap; max-width: 100%;">' +
                                   '        <span style="display: inline-flex; align-items: center; gap: 2.5px; font-size: 9.5px; font-weight: 850; color: var(--dark); white-space: nowrap;">' +
                                   '            <i class="ph-bold ph-file-pdf" style="color: #e74c3c; font-size: 11px;"></i> ' + totalFiles + ' PDFs' +
                                   '        </span>' +
@@ -7181,12 +6925,8 @@
         function handleSelectCategoryNode(cat, type) {
             // Check category lock first
             if (cat.isPaid && !isCategoryUnlocked(cat)) {
-                if (_demoCategories[cat.id]) {
-                    // Bypass category block for entering!
-                } else {
-                    showCategoryPaymentScreen(cat);
-                    return;
-                }
+                showCategoryPaymentScreen(cat);
+                return;
             }
 
             _activeCategoryName = cat.name;
@@ -7239,26 +6979,7 @@
                 directCard.className = "outline-item-card";
                 directCard.style.border = "2px dashed var(--primary)";
                 directCard.style.background = "rgba(255, 107, 53, 0.05)";
-                
-                const label = type === 'test' ? "🏆 Launch Category Exam" : "📁 View Category PDF Document";
-                const desc = type === 'test' ? "Primary category-level test assessment" : "Primary category-level study manual";
-                const icon = type === 'test' ? "ph ph-sparkle" : "ph ph-file-pdf";
-                
-                var isDemoMode = _demoCategories[cat.id];
-                var isFreeTest = false;
-                if (isDemoMode) {
-                    if (type === 'test' && cat.test && isDemoFreeTest(cat.test.id, cat)) {
-                        isFreeTest = true;
-                    } else if (type === 'pdf' && cat.pdf && isDemoFreePdf(cat.pdf.id, cat)) {
-                        isFreeTest = true;
-                    }
-                }
-
                 directCard.onclick = () => {
-                    if (isDemoMode && !isFreeTest) {
-                        showCategoryPaymentScreen(cat);
-                        return;
-                    }
                     if (cat.test && !isItemScheduledVisible(cat.test)) {
                         alert("This test is scheduled to start at: " + new Date(cat.test.scheduledAt).toLocaleString());
                         return;
@@ -7270,28 +6991,19 @@
                     handleVerifyDirectMeta(cat, type);
                 };
                 
-                var rightIconHtml = '<i class="ph ph-play" style="color: var(--primary);"></i>';
-                var badgeLabelHtml = '<h4 class="outline-item-title" style="color: var(--primary); font-weight:800;">' + label + '</h4>';
-                if (isDemoMode) {
-                    if (isFreeTest) {
-                        badgeLabelHtml = '<h4 class="outline-item-title" style="color: var(--primary); font-weight:800; display: flex; align-items: center; gap: 6px;">' +
-                                         '    <span style="display: inline-flex; align-items: center; gap: 4px; color: #2ecc71; font-size: 9.5px; font-weight: 850; background: rgba(46, 204, 113, 0.08); padding: 1.5px 6px; border-radius: 6px; border: 1px solid rgba(46, 204, 113, 0.15); font-family: Sahitya, serif;"><i class="ph-bold ph-gift" style="font-size: 10px;"></i> Free Demo</span>' +
-                                         '    ' + label +
-                                         '</h4>';
-                    } else {
-                        rightIconHtml = '<i class="ph-fill ph-lock" style="color: #ef4444; font-size: 18px;"></i>';
-                    }
-                }
-
+                const label = type === 'test' ? "🏆 Launch Category Exam" : "📁 View Category PDF Document";
+                const desc = type === 'test' ? "Primary category-level test assessment" : "Primary category-level study manual";
+                const icon = type === 'test' ? "ph ph-sparkle" : "ph ph-file-pdf";
+                
                 directCard.innerHTML = 
                     '<div class="outline-item-img" style="display:flex;align-items:center;justify-content:center; background: var(--primary); color: white;">' +
                     '    <i class="' + icon + '" style="font-size:24px;"></i>' +
                     '</div>' +
                     '<div class="outline-item-details">' +
-                    '    ' + badgeLabelHtml +
+                    '    <h4 class="outline-item-title" style="color: var(--primary); font-weight:800;">' + label + '</h4>' +
                     '    <p class="outline-item-subtitle">' + desc + '</p>' +
                     '</div>' +
-                    rightIconHtml;
+                    '<i class="ph ph-play" style="color: var(--primary);"></i>';
                 container.appendChild(directCard);
             }
 
@@ -7311,23 +7023,9 @@
             }
 
             visibleSubs.forEach((sub) => {
-                var isDemoMode = _demoCategories[cat.id];
-                var isFreeTestSub = false;
-                if (isDemoMode) {
-                    if (type === 'test' && subHasDemoFreeTest(sub, cat)) {
-                        isFreeTestSub = true;
-                    } else if (type === 'pdf' && subHasDemoFreePdf(sub, cat)) {
-                        isFreeTestSub = true;
-                    }
-                }
-
                 const card = document.createElement("div");
                 card.className = "outline-item-card";
-                if (isDemoMode && !isFreeTestSub) {
-                    card.onclick = () => showCategoryPaymentScreen(cat);
-                } else {
-                    card.onclick = () => handleSelectSubcategoryNode(sub, type);
-                }
+                card.onclick = () => handleSelectSubcategoryNode(sub, type);
                 var initSrc = (window.__imgCache && window.__imgCache[sub.image]) || sub.image || "";
                 
                 var subHtml = "";
@@ -7427,24 +7125,11 @@
                                   '    </div>';
                 }
 
-                var labelHtml = '<h4 class="outline-item-title">' + sub.name + '</h4>';
-                var rightIconHtml = '<i class="ph ph-caret-right" style="color: var(--primary);"></i>';
-                if (isDemoMode) {
-                    if (isFreeTestSub) {
-                        labelHtml = '<h4 class="outline-item-title" style="display: flex; align-items: center; gap: 6px;">' +
-                                    '    <span style="display: inline-flex; align-items: center; gap: 4px; color: #2ecc71; font-size: 9px; font-weight: 850; background: rgba(46, 204, 113, 0.08); padding: 1.5px 6px; border-radius: 6px; border: 1px solid rgba(46, 204, 113, 0.15); font-family: Sahitya, serif;"><i class="ph-bold ph-gift" style="font-size: 10px;"></i> Free Demo</span>' +
-                                    '    ' + sub.name +
-                                    '</h4>';
-                    } else {
-                        rightIconHtml = '<i class="ph-fill ph-lock" style="color: #ef4444; font-size: 18px; margin-right: 4px;"></i>';
-                    }
-                }
-
                 subHtml += '<div class="outline-item-details">';
-                subHtml += '    ' + labelHtml;
+                subHtml += '    <h4 class="outline-item-title">' + sub.name + '</h4>';
                 subHtml += detailsHtml;
                 subHtml += '</div>';
-                subHtml += rightIconHtml;
+                subHtml += '<i class="ph ph-caret-right" style="color: var(--primary);"></i>';
                 
                 card.innerHTML = subHtml;
                 container.appendChild(card);
@@ -7501,27 +7186,7 @@
                 directCard.className = "outline-item-card";
                 directCard.style.border = "2px dashed var(--primary)";
                 directCard.style.background = "rgba(255, 107, 53, 0.05)";
-                
-                const label = type === 'test' ? "🏆 Launch Sub-category Exam" : "📁 View Sub-category PDF Document";
-                const desc = type === 'test' ? "Primary subcategory-level test assessment" : "Primary subcategory-level study manual";
-                const icon = type === 'test' ? "ph ph-sparkle" : "ph ph-file-pdf";
-                
-                var rootCat = _activeCategoryNodeForUrl;
-                var isDemoMode = rootCat && _demoCategories[rootCat.id];
-                var isFreeTest = false;
-                if (isDemoMode) {
-                    if (type === 'test' && sub.test && isDemoFreeTest(sub.test.id, rootCat)) {
-                        isFreeTest = true;
-                    } else if (type === 'pdf' && sub.pdf && isDemoFreePdf(sub.pdf.id, rootCat)) {
-                        isFreeTest = true;
-                    }
-                }
-
                 directCard.onclick = () => {
-                    if (isDemoMode && !isFreeTest) {
-                        showCategoryPaymentScreen(rootCat);
-                        return;
-                    }
                     if (sub.test && !isItemScheduledVisible(sub.test)) {
                         alert("This test is scheduled to start at: " + new Date(sub.test.scheduledAt).toLocaleString());
                         return;
@@ -7533,28 +7198,19 @@
                     handleVerifyDirectMeta(sub, type);
                 };
                 
-                var rightIconHtml = '<i class="ph ph-play" style="color: var(--primary);"></i>';
-                var badgeLabelHtml = '<h4 class="outline-item-title" style="color: var(--primary); font-weight:800;">' + label + '</h4>';
-                if (isDemoMode) {
-                    if (isFreeTest) {
-                        badgeLabelHtml = '<h4 class="outline-item-title" style="color: var(--primary); font-weight:800; display: flex; align-items: center; gap: 6px;">' +
-                                         '    <span style="display: inline-flex; align-items: center; gap: 4px; color: #2ecc71; font-size: 9.5px; font-weight: 850; background: rgba(46, 204, 113, 0.08); padding: 1.5px 6px; border-radius: 6px; border: 1px solid rgba(46, 204, 113, 0.15); font-family: Sahitya, serif;"><i class="ph-bold ph-gift" style="font-size: 10px;"></i> Free Demo</span>' +
-                                         '    ' + label +
-                                         '</h4>';
-                    } else {
-                        rightIconHtml = '<i class="ph-fill ph-lock" style="color: #ef4444; font-size: 18px;"></i>';
-                    }
-                }
-
+                const label = type === 'test' ? "🏆 Launch Sub-category Exam" : "📁 View Sub-category PDF Document";
+                const desc = type === 'test' ? "Primary subcategory-level test assessment" : "Primary subcategory-level study manual";
+                const icon = type === 'test' ? "ph ph-sparkle" : "ph ph-file-pdf";
+                
                 directCard.innerHTML = 
                     '<div class="outline-item-img" style="display:flex;align-items:center;justify-content:center; background: var(--primary); color: white;">' +
                     '    <i class="' + icon + '" style="font-size:24px;"></i>' +
                     '</div>' +
                     '<div class="outline-item-details">' +
-                    '    ' + badgeLabelHtml +
+                    '    <h4 class="outline-item-title" style="color: var(--primary); font-weight:800;">' + label + '</h4>' +
                     '    <p class="outline-item-subtitle">' + desc + '</p>' +
                     '</div>' +
-                    rightIconHtml;
+                    '<i class="ph ph-play" style="color: var(--primary);"></i>';
                 container.appendChild(directCard);
             }
 
@@ -7574,21 +7230,9 @@
             }
 
             visibleTopics.forEach((topic) => {
-                var isDemoMode = _activeCategoryNodeForUrl && _demoCategories[_activeCategoryNodeForUrl.id];
-                var isFreeTest = false;
-                if (isDemoMode) {
-                    if (type === 'test' && topic.test && isDemoFreeTest(topic.test.id, _activeCategoryNodeForUrl)) {
-                        isFreeTest = true;
-                    }
-                }
-
                 const card = document.createElement("div");
                 card.className = "outline-item-card";
-                if (isDemoMode && !isFreeTest) {
-                    card.onclick = () => showCategoryPaymentScreen(_activeCategoryNodeForUrl);
-                } else {
-                    card.onclick = () => handleSelectTopicNode(topic, type);
-                }
+                card.onclick = () => handleSelectTopicNode(topic, type);
 
                 let iconClass = "ph ph-exam";
                 if (type === 'pdf') {
@@ -7648,33 +7292,11 @@
                                   '    </div>';
                 }
 
-                var isDemoMode = _activeCategoryNodeForUrl && _demoCategories[_activeCategoryNodeForUrl.id];
-                var isFreeTest = false;
-                if (isDemoMode) {
-                    if (type === 'test' && topic.test && isDemoFreeTest(topic.test.id, _activeCategoryNodeForUrl)) {
-                        isFreeTest = true;
-                    } else if (type === 'pdf' && topic.pdf && isDemoFreePdf(topic.pdf.id, _activeCategoryNodeForUrl)) {
-                        isFreeTest = true;
-                    }
-                }
-
                 topicHtml += '<div class="outline-item-details">';
-                if (isDemoMode && isFreeTest) {
-                    topicHtml += '    <h4 class="outline-item-title" style="display: flex; align-items: center; gap: 6px;">' +
-                                 '        <span style="display: inline-flex; align-items: center; gap: 4px; color: #2ecc71; font-size: 9.5px; font-weight: 850; background: rgba(46, 204, 113, 0.08); padding: 1.5px 6px; border-radius: 6px; border: 1px solid rgba(46, 204, 113, 0.15); font-family: Sahitya, serif;"><i class="ph-bold ph-gift" style="font-size: 10px;"></i> Free Demo</span>' +
-                                 '        ' + topic.name +
-                                 '    </h4>';
-                } else {
-                    topicHtml += '    <h4 class="outline-item-title">' + topic.name + '</h4>';
-                }
+                topicHtml += '    <h4 class="outline-item-title">' + topic.name + '</h4>';
                 topicHtml += detailsHtml;
                 topicHtml += '</div>';
-
-                if (isDemoMode && !isFreeTest) {
-                    topicHtml += '<i class="ph-fill ph-lock" style="color: #ef4444; font-size: 18px; margin-right: 4px;"></i>';
-                } else {
-                    topicHtml += '<i class="ph ph-caret-right" style="color: var(--primary);"></i>';
-                }
+                topicHtml += '<i class="ph ph-caret-right" style="color: var(--primary);"></i>';
 
                 card.innerHTML = topicHtml;
                 container.appendChild(card);
@@ -7720,14 +7342,8 @@
         function handleVerifyDirectMeta(node, type) {
             var rootCat = findRootCategoryForNode(node.id, type);
             if (rootCat && rootCat.isPaid && !isCategoryUnlocked(rootCat)) {
-                if (_demoCategories[rootCat.id] && type === 'test' && node.test && isDemoFreeTest(node.test.id, rootCat)) {
-                    // Bypass for the free demo test!
-                } else if (_demoCategories[rootCat.id] && type === 'pdf' && node.pdf && isDemoFreePdf(node.pdf.id, rootCat)) {
-                    // Bypass for the free demo pdf!
-                } else {
-                    showCategoryPaymentScreen(rootCat);
-                    return;
-                }
+                showCategoryPaymentScreen(rootCat);
+                return;
             }
             if (!isItemVisibleToStudent(node)) {
                 showCustomAlert("Resource Restricted", "This resource is restricted or not currently available for your account.");
@@ -8011,12 +7627,8 @@
         async function handleBeginTestInitiation() {
             var testRootCat = _activeTest ? findRootCategoryForNode(_activeTest.id, 'test') : null;
             if (testRootCat && testRootCat.isPaid && !isCategoryUnlocked(testRootCat)) {
-                if (_demoCategories[testRootCat.id] && _activeTest && isDemoFreeTest(_activeTest.id, testRootCat)) {
-                    // Bypass for the free demo test!
-                } else {
-                    showCategoryPaymentScreen(testRootCat);
-                    return;
-                }
+                showCategoryPaymentScreen(testRootCat);
+                return;
             }
             // If the test has split questions, make sure they are fetched and populated first!
             if (_activeTest && _activeTest.hasSplitQuestions && (!_activeTest.questionsEn || _activeTest.questionsEn.length === 0) && (!_activeTest.questionsHi || _activeTest.questionsHi.length === 0)) {
@@ -8088,11 +7700,7 @@
             var isGatedByCat = false;
             var testRootCat = _activeTest ? findRootCategoryForNode(_activeTest.id, 'test') : null;
             if (testRootCat && testRootCat.isPaid && !isCategoryUnlocked(testRootCat)) {
-                if (_demoCategories[testRootCat.id] && _activeTest && isDemoFreeTest(_activeTest.id, testRootCat)) {
-                    isGatedByCat = false; // Bypass for free demo test!
-                } else {
-                    isGatedByCat = true;
-                }
+                isGatedByCat = true;
             }
             if ((_activeTest.isPaid || isGatedByCat) && !_hasActiveCouponGrant) {
                 if (isGatedByCat) {
@@ -9478,111 +9086,12 @@
         }
         window.checkConcurrentUserSession = checkConcurrentUserSession;
 
-        function showStudentLoginDetailsPopup(user, onOk) {
-            if (!user) {
-                if (typeof onOk === "function") onOk();
-                return;
-            }
-            
-            var categoryNames = [];
-            var allCats = (DB.testCategories || []).concat(DB.pdfCategories || []);
-            var unlockedIds = user.unlockedCategoryIds || [];
-            
-            unlockedIds.forEach(function(id) {
-                var found = allCats.find(function(c) { return c.id === id; });
-                if (found) {
-                    var expLabel = "Lifetime";
-                    var isCurrentExpired = false;
-                    var catExpiry = null;
-                    var isCatLifetime = false;
-                    var hasSpecific = false;
-                    if (user.categoryDates && user.categoryDates[id]) {
-                        var catData = user.categoryDates[id];
-                        if (catData.isLifetime) {
-                            isCatLifetime = true;
-                            hasSpecific = true;
-                        } else if (catData.expiryDate && catData.expiryDate.trim() !== "") {
-                            catExpiry = catData.expiryDate;
-                            hasSpecific = true;
-                        }
-                    }
-                    if (!hasSpecific) {
-                        if (user.expiryDate && user.expiryDate.trim() !== "") {
-                            catExpiry = user.expiryDate;
-                        } else {
-                            isCatLifetime = true;
-                        }
-                    }
-                    
-                    if (isCatLifetime) {
-                        expLabel = "Lifetime Access";
-                    } else if (catExpiry) {
-                        var exp = new Date(catExpiry);
-                        var diffMs = exp.getTime() - Date.now();
-                        var diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-                        if (diffDays > 0) {
-                            expLabel = diffDays + " Days Left";
-                        } else {
-                            expLabel = "Expired";
-                            isCurrentExpired = true;
-                        }
-                    } else {
-                        expLabel = "Lifetime Access";
-                    }
-                    
-                    var exists = categoryNames.some(function(item) { return item.id === found.id; });
-                    if (!exists) {
-                        categoryNames.push({
-                            id: found.id,
-                            name: found.name,
-                            expiry: expLabel,
-                            expired: isCurrentExpired
-                        });
-                    }
-                }
-            });
-            
-            var html = '';
-            if (categoryNames.length === 0) {
-                html += '<div style="padding: 15px 10px; text-align: center; font-family: Sahitya, serif;">' +
-                        '  <i class="ph-bold ph-lock-keyhole" style="font-size: 32px; color: #94a3b8; margin-bottom: 8px; display: block;"></i>' +
-                        '  <div style="font-size: 13.5px; color: #64748b; font-weight: 700;">No premium packages unlocked yet.</div>' +
-                        '</div>';
-            } else {
-                html += '<div style="text-align: left; font-family: Sahitya, serif;">' +
-                        '  <div style="font-size: 12.5px; color: #64748b; margin-bottom: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px;">Activated Packages:</div>' +
-                        '  <div style="display: flex; flex-direction: column; gap: 10px; max-height: 220px; overflow-y: auto; padding-right: 2px;">';
-                
-                categoryNames.forEach(function(item) {
-                    var isExp = item.expired;
-                    var bg = isExp ? 'rgba(239,68,68,0.03)' : 'rgba(34,197,94,0.03)';
-                    var border = isExp ? 'rgba(239,68,68,0.12)' : 'rgba(34,197,94,0.12)';
-                    var pillBg = isExp ? 'rgba(239,68,68,0.1)' : 'rgba(34,197,94,0.1)';
-                    var pillColor = isExp ? '#ef4444' : '#22c55e';
-                    var icon = isExp ? 'ph-x-circle' : 'ph-check-circle';
-                    
-                    html += '    <div style="background: ' + bg + '; border: 1.5px solid ' + border + '; border-radius: 14px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">' +
-                            '      <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;">' +
-                            '        <i class="ph-fill ' + icon + '" style="font-size: 18px; color: ' + pillColor + '; flex-shrink: 0;"></i>' +
-                            '        <span style="font-weight: 750; font-size: 13.5px; color: var(--dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">' + item.name + '</span>' +
-                            '      </div>' +
-                            '      <span style="background: ' + pillBg + '; color: ' + pillColor + '; font-size: 10px; font-weight: 850; padding: 3.5px 8px; border-radius: 8px; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.2px;">' + item.expiry + '</span>' +
-                            '    </div>';
-                });
-                
-                html += '  </div>' +
-                        '</div>';
-            }
-            
-            showCustomAlert("Activated Packages", html, onOk);
-        }
-
         function handleStudentAuthenticationProcess() {
             const credMail = document.getElementById("inputStudentCredMail").value.trim().toLowerCase();
             const credPass = document.getElementById("inputStudentCredPass").value.trim();
 
             if (!credMail || !credPass) {
-                showCustomAlert("Authentication Warning", "Provide valid account login keys.");
+                alert("Provide valid account login keys.");
                 return;
             }
 
@@ -9602,13 +9111,10 @@
                     localStorage.setItem("_secured_active_aspirant", JSON.stringify(resData.user));
                     refreshStudentAccountProfileGate();
                     try { syncSavedQuestionsWithCloud("pull"); } catch(e){}
-                    showCustomAlert("Login Success", "Welcome back! " + (_studentLoggedInUser.name || "Aspirant") + " logged in successfully.", function() {
-                        showStudentLoginDetailsPopup(_studentLoggedInUser, function() {
-                            handleTabNavigation('home');
-                        });
-                    });
+                    alert("Login Approved! Premium materials are unlocked.");
+                    handleTabNavigation('home');
                 } else {
-                    showCustomAlert("Access Denied", "Invalid student credentials key pair. Try again or notify Prayas One operator.");
+                    alert("Invalid student credentials key pair. Try again or notify Prayas One operator.");
                 }
             })
             .catch(err => {
@@ -9624,13 +9130,10 @@
                     localStorage.setItem("_secured_active_aspirant", JSON.stringify(matchedStudent));
                     refreshStudentAccountProfileGate();
                     try { syncSavedQuestionsWithCloud("pull"); } catch(e){}
-                    showCustomAlert("Login Success", "Welcome back! " + (_studentLoggedInUser.name || "Aspirant") + " logged in successfully.", function() {
-                        showStudentLoginDetailsPopup(_studentLoggedInUser, function() {
-                            handleTabNavigation('home');
-                        });
-                    });
+                    alert("Login Approved! Premium materials are unlocked.");
+                    handleTabNavigation('home');
                 } else {
-                    showCustomAlert("Access Denied", "Invalid student credentials key pair. Try again or notify Prayas One operator.");
+                    alert("Invalid student credentials key pair. Try again or notify Prayas One operator.");
                 }
             });
         }
@@ -9639,9 +9142,8 @@
             localStorage.removeItem("_secured_active_aspirant");
             _studentLoggedInUser = null;
             refreshStudentAccountProfileGate();
-            showCustomAlert("Logout Successful", "You have signed out successfully.", function() {
-                handleTabNavigation('home');
-            });
+            alert("Secure session revoked. Standard premium limitations are re-locked.");
+            handleTabNavigation('home');
         }
 
         // Shared Telegram screenshot link
@@ -10541,16 +10043,18 @@
                         console.log("Database loaded features instantly from local cache!");
                         try { ensurePaymentQrCached(); } catch(e){}
                         
-                        // If build ID matches current, we still run the background fetch to dynamically synchronize updates without needing a new HTML file download.
-                        try {
-                            finishPortalInitialization();
-                        } catch(err_init) {
-                            console.error("Error doing hot start:", err_init);
-                        }
+                        // If build ID matches current, skip external fetch completely
                         if (currentBuildId && cachedBuildId && currentBuildId === cachedBuildId) {
-                            console.log("Cached configuration is loaded instantly (" + currentBuildId + "). Background synchronization starting to look for fresh database updates...");
+                            console.log("Cached configuration is up to date (" + currentBuildId + ").");
+                            finishPortalInitialization();
+                            return;
                         } else {
                             console.log("Updating configuration segments (" + currentBuildId + ")...");
+                            try {
+                                finishPortalInitialization();
+                            } catch(err_init) {
+                                console.error("Error doing hot start:", err_init);
+                            }
                         }
                     }
                 } catch (cacheErr) {
@@ -10579,16 +10083,13 @@
                 var loadedChunks = new Array(window.__studentAppChunkCount);
                 var fetchedCount = 0;
                 var promises = [];
-                // Use a rounded-minute cache buster (every 60s) so CDNs and browsers bypass caching and always fetch the newly updated database segments.
-                var minuteBuster = Math.floor(Date.now() / 60000);
-                var buildQuery = "?v=" + encodeURIComponent(window.__studentAppBuildId || "") + "&cb=" + minuteBuster;
+                var buildQuery = window.__studentAppBuildId ? "?v=" + encodeURIComponent(window.__studentAppBuildId) : "";
 
                 for (var i = 0; i < window.__studentAppChunkCount; i++) {
                     (function(index) {
                         var filename = "config_part_" + (index + 1) + ".txt";
                         var r2Url = _getRegistryPath(filename) + buildQuery;
-                        // Use no-cache to force validating the file freshness directly against storage
-                        var fetchPromise = fetch(r2Url, { cache: "no-cache" })
+                        var fetchPromise = fetch(r2Url, { cache: "default" })
                             .then(function(res) {
                                 if (!res.ok) {
                                     throw new Error("HTTP " + res.status + " retrieving " + filename);
@@ -10635,16 +10136,6 @@
                                 try { launchSlidersCarousel(); } catch(e){}
                                 try { renderNoticesScrollingBoard(); } catch(e){}
                                 try { refreshStudentAccountProfileGate(); } catch(e){}
-                                try {
-                                    var activeTab = localStorage.getItem("_student_active_tab_id") || "home";
-                                    if (activeTab === "tests") {
-                                        renderCategorySelectionScreen('test');
-                                    } else if (activeTab === "pdfs") {
-                                        renderCategorySelectionScreen('pdf');
-                                    } else if (activeTab === "home") {
-                                        renderSavedQuestionsBox();
-                                    }
-                                } catch(e){}
                             }
                         } catch (e) {
                             console.error("Could not parse freshly compiled background copy:", e);
