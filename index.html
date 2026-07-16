@@ -241,6 +241,7 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Preamble","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Preamble"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Part 1&2 of the Constitution","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Part 1 and Part 2 of the Constitution"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Fundamental Rights","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Fundamental Rights"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Logical Analogy Quick Mock Exam","description":"Standard Analogy Test of Logical Reasoning.","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Analogy Practice Test"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
 
     
     <!-- Google Fonts Imports -->
@@ -2833,7 +2834,7 @@
     </style>
     <script>
         window.__studentAppChunkCount = 5;
-        window.__studentAppBuildId = "prayas_build_1784199714511_h0hh27x";
+        window.__studentAppBuildId = "prayas_build_1784211432138_v2zrzg4";
     </script>
 </head>
 <body>
@@ -5699,6 +5700,8 @@
         let _activeCategoryNodeForUrl = null;
         let _activeSubcategoryNodeForUrl = null;
         let _activeTopicNodeForUrl = null;
+        let _activeTopicStack = [];
+        let _activeTopicType = 'test';
         let _isHandlingPopState = false;
 
         function toSlug(str) {
@@ -6299,6 +6302,17 @@
                 showCustomConfirm("Exit Application", "Do you want to exit Prayas Study Desk?", function() {
                     history.back();
                 });
+                return;
+            }
+
+            if (currentScreenId === 'scr-topics' && _activeTopicStack && _activeTopicStack.length > 0) {
+                _activeTopicStack.pop();
+                if (_activeTopicStack.length > 0) {
+                    const parentTopicNode = _activeTopicStack[_activeTopicStack.length - 1];
+                    renderTopicList(parentTopicNode.topics || [], parentTopicNode.name, _activeTopicType);
+                } else {
+                    renderTopicList(_activeSubcategoryNodeForUrl.topics || [], _activeSubcategoryNodeForUrl.name, _activeTopicType);
+                }
                 return;
             }
 
@@ -7477,6 +7491,8 @@
 
             _activeSubcategoryNodeForUrl = sub;
             _activeTopicNodeForUrl = null;
+            _activeTopicStack = [];
+            _activeTopicType = type;
             updateHistoryAndUrl(_activeCategoryNodeForUrl, sub, null);
 
             const hasTopics = sub.topics && sub.topics.length > 0;
@@ -7496,14 +7512,19 @@
             }
 
             // Open Topics screen
+            navigateToScreen("scr-topics", sub.name);
+            renderTopicList(sub.topics || [], sub.name, type);
+        }
+
+        function renderTopicList(topics, title, type) {
             const container = document.getElementById("topicsGridArea");
             container.innerHTML = "";
-            document.getElementById("topicSelectionTitle").innerText = sub.name;
+            document.getElementById("topicSelectionTitle").innerText = title;
 
-            navigateToScreen("scr-topics", sub.name);
+            const hasResource = (_activeSubcategoryNodeForUrl && ((type === 'test' && _activeSubcategoryNodeForUrl.test) || (type === 'pdf' && _activeSubcategoryNodeForUrl.pdf)));
 
-            // Prepend a special direct launch card if direct content is attached at subarray
-            if (hasResource) {
+            // Prepend a special direct launch card if direct content is attached at subcategory level and we are at the root level of topics stack
+            if (hasResource && _activeTopicStack.length === 0) {
                 const directCard = document.createElement("div");
                 directCard.className = "outline-item-card";
                 directCard.style.border = "2px dashed var(--primary)";
@@ -7517,9 +7538,9 @@
                 var isDemoMode = rootCat && _demoCategories[rootCat.id];
                 var isFreeTest = false;
                 if (isDemoMode) {
-                    if (type === 'test' && sub.test && isDemoFreeTest(sub.test.id, rootCat)) {
+                    if (type === 'test' && _activeSubcategoryNodeForUrl.test && isDemoFreeTest(_activeSubcategoryNodeForUrl.test.id, rootCat)) {
                         isFreeTest = true;
-                    } else if (type === 'pdf' && sub.pdf && isDemoFreePdf(sub.pdf.id, rootCat)) {
+                    } else if (type === 'pdf' && _activeSubcategoryNodeForUrl.pdf && isDemoFreePdf(_activeSubcategoryNodeForUrl.pdf.id, rootCat)) {
                         isFreeTest = true;
                     }
                 }
@@ -7529,15 +7550,15 @@
                         showCategoryPaymentScreen(rootCat);
                         return;
                     }
-                    if (sub.test && !isItemScheduledVisible(sub.test)) {
-                        alert("This test is scheduled to start at: " + new Date(sub.test.scheduledAt).toLocaleString());
+                    if (_activeSubcategoryNodeForUrl.test && !isItemScheduledVisible(_activeSubcategoryNodeForUrl.test)) {
+                        alert("This test is scheduled to start at: " + new Date(_activeSubcategoryNodeForUrl.test.scheduledAt).toLocaleString());
                         return;
                     }
-                    if (sub.pdf && !isItemScheduledVisible(sub.pdf)) {
-                        alert("This PDF is scheduled to release at: " + new Date(sub.pdf.scheduledAt).toLocaleString());
+                    if (_activeSubcategoryNodeForUrl.pdf && !isItemScheduledVisible(_activeSubcategoryNodeForUrl.pdf)) {
+                        alert("This PDF is scheduled to release at: " + new Date(_activeSubcategoryNodeForUrl.pdf.scheduledAt).toLocaleString());
                         return;
                     }
-                    handleVerifyDirectMeta(sub, type);
+                    handleVerifyDirectMeta(_activeSubcategoryNodeForUrl, type);
                 };
                 
                 var rightIconHtml = '<i class="ph ph-play" style="color: var(--primary);"></i>';
@@ -7565,17 +7586,52 @@
                 container.appendChild(directCard);
             }
 
-            if (!sub.topics || sub.topics.length === 0) {
-                if (!hasResource) {
-                    container.innerHTML = `<div class="coming-soon-box">No active items located here.</div>`;
-                }
-                return;
+            // Render navigation breadcrumbs if looking at subtopics
+            if (_activeTopicStack && _activeTopicStack.length > 0) {
+                const breadcrumbDiv = document.createElement("div");
+                breadcrumbDiv.style.cssText = "display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--grey-text); margin-bottom: 12px; flex-wrap: wrap; background: rgba(120, 120, 120, 0.04); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(120, 120, 120, 0.08);";
+                
+                // Root subcategory link
+                const rootSpan = document.createElement("span");
+                rootSpan.innerText = _activeSubcategoryNodeForUrl.name;
+                rootSpan.style.cursor = "pointer";
+                rootSpan.style.color = "var(--primary)";
+                rootSpan.onclick = () => {
+                    _activeTopicStack = [];
+                    renderTopicList(_activeSubcategoryNodeForUrl.topics || [], _activeSubcategoryNodeForUrl.name, type);
+                };
+                breadcrumbDiv.appendChild(rootSpan);
+
+                _activeTopicStack.forEach((node, idx) => {
+                    const arrow = document.createElement("span");
+                    arrow.innerText = "›";
+                    breadcrumbDiv.appendChild(arrow);
+
+                    const nodeSpan = document.createElement("span");
+                    nodeSpan.innerText = node.name;
+                    if (idx < _activeTopicStack.length - 1) {
+                        nodeSpan.style.cursor = "pointer";
+                        nodeSpan.style.color = "var(--primary)";
+                        nodeSpan.onclick = () => {
+                            _activeTopicStack = _activeTopicStack.slice(0, idx + 1);
+                            renderTopicList(node.topics || [], node.name, type);
+                        };
+                    } else {
+                        nodeSpan.style.color = "var(--dark)";
+                    }
+                    breadcrumbDiv.appendChild(nodeSpan);
+                });
+
+                container.appendChild(breadcrumbDiv);
             }
 
-            const visibleTopics = sub.topics.filter(isItemVisibleToStudent);
+            const visibleTopics = (topics || []).filter(isItemVisibleToStudent);
             if (visibleTopics.length === 0) {
-                if (!hasResource) {
-                    container.innerHTML = `<div class="coming-soon-box">No scheduled items located here currently.</div>`;
+                if (!hasResource || _activeTopicStack.length > 0) {
+                    const emptyBox = document.createElement("div");
+                    emptyBox.className = "coming-soon-box";
+                    emptyBox.innerText = "No active items located here currently.";
+                    container.appendChild(emptyBox);
                 }
                 return;
             }
@@ -7596,7 +7652,9 @@
                 card.onclick = () => handleSelectTopicNode(topic, type);
 
                 let iconClass = "ph ph-exam";
-                if (type === 'pdf') {
+                if (topic.topics && topic.topics.length > 0) {
+                    iconClass = "ph ph-folder-open";
+                } else if (type === 'pdf') {
                     iconClass = "ph ph-file-pdf";
                 }
 
@@ -7612,7 +7670,14 @@
 
                 // Compute stats for topic level
                 var detailsHtml = "";
-                if (type === 'test') {
+                if (topic.topics && topic.topics.length > 0) {
+                    const subcount = topic.topics.filter(isItemVisibleToStudent).length;
+                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: nowrap; max-width: 100%;">' +
+                                  '        <span style="display: inline-flex; align-items: center; gap: 2px; font-size: 9px; font-weight: 850; color: var(--dark); white-space: nowrap;">' +
+                                  '            <i class="ph-bold ph-folder" style="color: #f1c40f; font-size: 11px;"></i> ' + subcount + ' Items inside' +
+                                  '        </span>' +
+                                  '    </div>';
+                } else if (type === 'test') {
                     var totalQ = topic.test ? getQuestionsCountFromTest(topic.test) : 0;
                     var durationMins = topic.test ? (topic.test.duration || 0) : 0;
                     var attempts = topic.test ? parseInt(localStorage.getItem("attempts_test_" + topic.test.id) || "0", 10) : 0;
@@ -7653,16 +7718,6 @@
                                   '    </div>';
                 }
 
-                var isDemoMode = _activeCategoryNodeForUrl && _demoCategories[_activeCategoryNodeForUrl.id];
-                var isFreeTest = false;
-                if (isDemoMode) {
-                    if (type === 'test' && topic.test && isDemoFreeTest(topic.test.id, _activeCategoryNodeForUrl)) {
-                        isFreeTest = true;
-                    } else if (type === 'pdf' && topic.pdf && isDemoFreePdf(topic.pdf.id, _activeCategoryNodeForUrl)) {
-                        isFreeTest = true;
-                    }
-                }
-
                 topicHtml += '<div class="outline-item-details">';
                 if (isDemoMode && isFreeTest) {
                     topicHtml += '    <h4 class="outline-item-title" style="display: flex; align-items: center; gap: 6px;">' +
@@ -7675,7 +7730,9 @@
                 topicHtml += detailsHtml;
                 topicHtml += '</div>';
 
-                if (isDemoMode && !isFreeTest) {
+                if (topic.topics && topic.topics.length > 0) {
+                    topicHtml += '<i class="ph ph-folder" style="color: #f1c40f; font-size: 18px;"></i>';
+                } else if (isDemoMode && !isFreeTest) {
                     topicHtml += '<i class="ph-fill ph-lock" style="color: #ef4444; font-size: 18px; margin-right: 4px;"></i>';
                 } else {
                     topicHtml += '<i class="ph ph-caret-right" style="color: var(--primary);"></i>';
@@ -7705,6 +7762,12 @@
                 _activeSubCategoryName = _activeSubcategoryNodeForUrl.name;
             }
             _activeTopicName = topic.name;
+
+            if (topic.topics && topic.topics.length > 0) {
+                _activeTopicStack.push(topic);
+                renderTopicList(topic.topics, topic.name, type);
+                return;
+            }
 
             _activeTopicNodeForUrl = topic;
             updateHistoryAndUrl(_activeCategoryNodeForUrl, _activeSubcategoryNodeForUrl, topic);
@@ -10627,16 +10690,12 @@
             var loadedSuccessfully = true;
             var loadedFromCache = false;
             var cachedData = null;
-            var isCacheUpToDate = false;
 
             if (window.__studentAppChunkCount && window.__studentAppChunkCount > 0) {
                 // Try to load synchronously from localStorage first for absolute instantaneous booting
                 try {
                     var localPayload = localStorage.getItem("prayas_one_student_db_payload");
                     if (localPayload && localPayload.trim() !== "") {
-                        var currentBuildId = window.__studentAppBuildId || "";
-                        var cachedBuildId = localStorage.getItem("prayas_one_student_db_build_id") || "";
-                        
                         DB = JSON.parse(decodeObfuscatedPayload(localPayload));
                         loadedFromCache = true;
                         console.log("Database loaded features instantly from localStorage cache!");
@@ -10646,13 +10705,6 @@
                             finishPortalInitialization();
                         } catch(err_init) {
                             console.error("Error doing hot start from localStorage:", err_init);
-                        }
-                        
-                        if (currentBuildId && cachedBuildId && currentBuildId === cachedBuildId) {
-                            console.log("Cached localStorage configuration loaded instantly (" + currentBuildId + "). Skipping segment syncing since cache is up-to-date!");
-                            isCacheUpToDate = true;
-                        } else {
-                            console.log("Updating configuration segments from localStorage state...");
                         }
                     }
                 } catch (localErr) {
@@ -10664,9 +10716,6 @@
                     try {
                         cachedData = await getCachedPayload();
                         if (cachedData && cachedData.payload && cachedData.payload.trim() !== "") {
-                            var currentBuildId = window.__studentAppBuildId || "";
-                            var cachedBuildId = cachedData.buildId || "";
-                            
                             DB = JSON.parse(decodeObfuscatedPayload(cachedData.payload));
                             loadedFromCache = true;
                             console.log("Database loaded features instantly from IndexedDB cache!");
@@ -10677,21 +10726,35 @@
                             } catch(err_init) {
                                 console.error("Error doing hot start from IndexedDB:", err_init);
                             }
-                            if (currentBuildId && cachedBuildId && currentBuildId === cachedBuildId) {
-                                console.log("Cached IndexedDB configuration is loaded instantly (" + currentBuildId + "). Skipping segment syncing since cache is up-to-date!");
-                                isCacheUpToDate = true;
-                            } else {
-                                console.log("Updating configuration segments (" + currentBuildId + ")...");
-                            }
                         }
                     } catch (cacheErr) {
                         console.warn("Could not load from local IndexedDB cache, fetching fresh...", cacheErr);
                     }
                 }
 
-                if (isCacheUpToDate) {
-                    console.log("Configuration cache up-to-date (" + window.__studentAppBuildId + "). Bypassing chunk downloads.");
-                    return;
+                // Check for background updates on the server dynamically using ETag/Last-Modified of config_part_1.txt
+                var skipFetch = false;
+                var serverETag = null;
+                if (loadedFromCache) {
+                    try {
+                        var cacheBuster = "?v=" + Date.now();
+                        var r2Url = _getRegistryPath("config_part_1.txt") + cacheBuster;
+                        var headRes = await fetch(r2Url, { method: "HEAD" });
+                        if (headRes.ok) {
+                            serverETag = headRes.headers.get("ETag") || headRes.headers.get("Last-Modified");
+                            var cachedETag = localStorage.getItem("prayas_one_student_db_etag") || "";
+                            if (serverETag && cachedETag && serverETag === cachedETag) {
+                                console.log("Database is up-to-date (ETag matches). Stopping sync.");
+                                skipFetch = true;
+                            }
+                        }
+                    } catch(etagErr) {
+                        console.warn("Could not perform ETag update check:", etagErr);
+                    }
+                }
+
+                if (skipFetch) {
+                    return; // "if nahi hai toh band kar de" - completely stop!
                 }
 
                 var loaderOverlay = null;
@@ -10753,6 +10816,23 @@
 
                     var base64ConfigJoined = loadedChunks.join("");
                     
+                    // "if nahi hai toh band kar de" - Check if data actually changed compared to the cache
+                    var cachedPayload = "";
+                    try {
+                        cachedPayload = localStorage.getItem("prayas_one_student_db_payload") || "";
+                    } catch (e) {}
+                    if (!cachedPayload && cachedData && cachedData.payload) {
+                        cachedPayload = cachedData.payload;
+                    }
+
+                    if (loadedFromCache && cachedPayload && cachedPayload.trim() === base64ConfigJoined.trim()) {
+                        console.log("Database payload matches cached database exactly. Bypassing save.");
+                        if (serverETag) {
+                            localStorage.setItem("prayas_one_student_db_etag", serverETag);
+                        }
+                        return; // Stop right here! "if nahi hai toh band kar de"
+                    }
+
                     // Save compiled config in storage with current build ID
                     var currentBuildId = window.__studentAppBuildId || "";
                     savePayloadToCache(base64ConfigJoined, currentBuildId);
@@ -10760,6 +10840,9 @@
                     try {
                         localStorage.setItem("prayas_one_student_db_payload", base64ConfigJoined);
                         localStorage.setItem("prayas_one_student_db_build_id", currentBuildId);
+                        if (serverETag) {
+                            localStorage.setItem("prayas_one_student_db_etag", serverETag);
+                        }
                         console.log("Database payload successfully updated in localStorage.");
                     } catch(lsErr) {
                         console.warn("Could not write updated database payload to localStorage:", lsErr);
