@@ -2833,7 +2833,7 @@
     </style>
     <script>
         window.__studentAppChunkCount = 5;
-        window.__studentAppBuildId = "prayas_build_1784215672527_mht4sx9";
+        window.__studentAppBuildId = "prayas_build_1784217594307_2t29ecv";
     </script>
 </head>
 <body>
@@ -10776,48 +10776,47 @@
                     }
                 }
 
+                // If still not loaded from local cache, initialize a safe default state to prevent any blocking/loading screen, and run in background!
+                if (!loadedFromCache) {
+                    DB = {
+                        testCategories: [],
+                        pdfCategories: [],
+                        sliders: [],
+                        notices: [],
+                        appName: "Prayas One",
+                        logo: "",
+                        social: {}
+                    };
+                    loadedFromCache = true; // Mark as loaded so update check runs in the background and has silent treatment
+                    console.log("No cache available. Booting instantly with clean fallback state, database will sync in the background.");
+                    try {
+                        finishPortalInitialization();
+                    } catch(err_fallback) {
+                        console.error("Error launching with fallback DB:", err_fallback);
+                    }
+                }
+
                 // Check for background updates on the server dynamically using ETag/Last-Modified of config_part_1.txt
                 var skipFetch = false;
                 var serverETag = null;
-                if (loadedFromCache) {
-                    try {
-                        var cacheBuster = "?v=" + Date.now();
-                        var r2Url = _getRegistryPath("config_part_1.txt") + cacheBuster;
-                        var headRes = await fetch(r2Url, { method: "HEAD" });
-                        if (headRes.ok) {
-                            serverETag = headRes.headers.get("ETag") || headRes.headers.get("Last-Modified");
-                            var cachedETag = localStorage.getItem("prayas_one_student_db_etag") || "";
-                            if (serverETag && cachedETag && serverETag === cachedETag) {
-                                console.log("Database is up-to-date (ETag matches). Stopping sync.");
-                                skipFetch = true;
-                            }
+                try {
+                    var cacheBuster = "?v=" + Date.now();
+                    var r2Url = _getRegistryPath("config_part_1.txt") + cacheBuster;
+                    var headRes = await fetch(r2Url, { method: "HEAD" });
+                    if (headRes.ok) {
+                        serverETag = headRes.headers.get("ETag") || headRes.headers.get("Last-Modified");
+                        var cachedETag = localStorage.getItem("prayas_one_student_db_etag") || "";
+                        if (serverETag && cachedETag && serverETag === cachedETag) {
+                            console.log("Database is up-to-date (ETag matches). Stopping sync.");
+                            skipFetch = true;
                         }
-                    } catch(etagErr) {
-                        console.warn("Could not perform ETag update check:", etagErr);
                     }
+                } catch(etagErr) {
+                    console.warn("Could not perform ETag update check:", etagErr);
                 }
 
                 if (skipFetch) {
                     return; // "if nahi hai toh band kar de" - completely stop!
-                }
-
-                var loaderOverlay = null;
-                if (!loadedFromCache) {
-                    loaderOverlay = document.createElement("div");
-                    loaderOverlay.id = "db-loader-overlay";
-                    loaderOverlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:99999; font-family:'Sahitya', serif; transition: background 0.3s ease;";
-                    loaderOverlay.innerHTML = '<style>' +
-                        '@keyframes db-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }' +
-                        '#db-loader-overlay { background: #FFFFFF; }' +
-                        '#db-loading-spinner { width:45px; height:45px; border:4.5px solid rgba(0,0,0,0.06); border-top:4.5px solid #FF6B35; border-radius:50%; animation: db-spin 1.1s cubic-bezier(0.4, 0, 0.2, 1) infinite; }' +
-                        '@media (prefers-color-scheme: dark) {' +
-                        '  #db-loader-overlay { background: #000000; }' +
-                        '  #db-loading-spinner { border: 4.5px solid rgba(255,107,53,0.15); border-top: 4.5px solid #FF6B35; }' +
-                        '}' +
-                        '</style>' +
-                        '<div id="db-loading-spinner"></div>' +
-                        '<div id="db-loader-error" style="display:none; margin-top:20px; color:#EF4444; font-size:12px; text-align:left; max-width:80%; line-height:1.6; padding:20px; background:#1F2937; border-radius:10px; border:1px solid #374151; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);"></div>';
-                    document.body.appendChild(loaderOverlay);
                 }
 
                 var loadedChunks = new Array(window.__studentAppChunkCount);
@@ -10844,11 +10843,7 @@
                                 fetchedCount++;
                             })
                             .catch(function(e) {
-                                if (!loadedFromCache) {
-                                    throw e;
-                                } else {
-                                    console.warn("Background fetch failed for segment " + filename, e);
-                                }
+                                console.warn("Background fetch failed for segment " + filename, e);
                             });
                         promises.push(fetchPromise);
                     })(i);
@@ -10859,6 +10854,10 @@
                     await Promise.all(promises);
 
                     var base64ConfigJoined = loadedChunks.join("");
+                    if (!base64ConfigJoined || base64ConfigJoined.trim() === "") {
+                        console.warn("Downloaded chunks were empty, ignoring update.");
+                        return;
+                    }
                     
                     // "if nahi hai toh band kar de" - Check if data actually changed compared to the cache
                     var cachedPayload = "";
@@ -10869,7 +10868,7 @@
                         cachedPayload = cachedData.payload;
                     }
 
-                    if (loadedFromCache && cachedPayload && cachedPayload.trim() === base64ConfigJoined.trim()) {
+                    if (cachedPayload && cachedPayload.trim() === base64ConfigJoined.trim()) {
                         console.log("Database payload matches cached database exactly. Bypassing save.");
                         if (serverETag) {
                             localStorage.setItem("prayas_one_student_db_etag", serverETag);
@@ -10894,62 +10893,34 @@
                     console.log("Database cache successfully saved / refreshed.");
                     
                     // Parse & display
-                    if (loadedFromCache) {
-                        try {
-                            DB = JSON.parse(decodeObfuscatedPayload(base64ConfigJoined));
-                            console.log("Seamlesly synchronized memory database with freshly downloaded copy.");
-                            try { ensurePaymentQrCached(); } catch(e){}
-                            
-                            // Silent live updates of view tabs when user is not taking an exam
-                            var inActiveAttempt = (typeof _activeAttemptState !== 'undefined' && _activeAttemptState) || 
-                                                    (document.getElementById("activeQuizTimer") && document.getElementById("activeQuizTimer").style.display !== "none");
-                            if (!inActiveAttempt) {
-                                try { launchSlidersCarousel(); } catch(e){}
-                                try { renderNoticesScrollingBoard(); } catch(e){}
-                                try { refreshStudentAccountProfileGate(); } catch(e){}
-                                try {
-                                    var activeTab = localStorage.getItem("_student_active_tab_id") || "home";
-                                    if (activeTab === "tests") {
-                                        renderCategorySelectionScreen('test');
-                                    } else if (activeTab === "pdfs") {
-                                        renderCategorySelectionScreen('pdf');
-                                    } else if (activeTab === "home") {
-                                        renderSavedQuestionsBox();
-                                    }
-                                } catch(e){}
-                            }
-                        } catch (e) {
-                            console.error("Could not parse freshly compiled background copy:", e);
+                    try {
+                        DB = JSON.parse(decodeObfuscatedPayload(base64ConfigJoined));
+                        console.log("Seamlesly synchronized memory database with freshly downloaded copy.");
+                        try { ensurePaymentQrCached(); } catch(e){}
+                        
+                        // Silent live updates of view tabs when user is not taking an exam
+                        var inActiveAttempt = (typeof _activeAttemptState !== 'undefined' && _activeAttemptState) || 
+                                                (document.getElementById("activeQuizTimer") && document.getElementById("activeQuizTimer").style.display !== "none");
+                        if (!inActiveAttempt) {
+                            try { launchSlidersCarousel(); } catch(e){}
+                            try { renderNoticesScrollingBoard(); } catch(e){}
+                            try { refreshStudentAccountProfileGate(); } catch(e){}
+                            try {
+                                var activeTab = localStorage.getItem("_student_active_tab_id") || "home";
+                                if (activeTab === "tests") {
+                                    renderCategorySelectionScreen('test');
+                                } else if (activeTab === "pdfs") {
+                                    renderCategorySelectionScreen('pdf');
+                                } else if (activeTab === "home") {
+                                    renderSavedQuestionsBox();
+                                }
+                            } catch(e){}
                         }
-                    } else {
-                        try {
-                            DB = JSON.parse(decodeObfuscatedPayload(base64ConfigJoined));
-                            try { ensurePaymentQrCached(); } catch(e){}
-                            if (loaderOverlay && loaderOverlay.parentNode) {
-                                loaderOverlay.parentNode.removeChild(loaderOverlay);
-                            }
-                            finishPortalInitialization();
-                        } catch (parseErr) {
-                            throw parseErr;
-                        }
+                    } catch (e) {
+                        console.error("Could not parse freshly compiled background copy:", e);
                     }
                 } catch (e) {
                     console.error("Split chunk parallel load failed:", e);
-                    loadedSuccessfully = false;
-
-                    if (!loadedFromCache) {
-                        var spinnerEl = document.getElementById("db-loading-spinner");
-                        if (spinnerEl) spinnerEl.style.display = "none";
-                        
-                        var errorEl = document.getElementById("db-loader-error");
-                        if (errorEl) {
-                            errorEl.innerHTML = '<strong style="font-size: 14px; color: #F87171; display:block; margin-bottom:8px;">&#9888;&#65039; Database Load Failed</strong>' +
-                                'Error reassembling database chunk elements: <code style="color: #FF8F8F; font-weight: bold; background: #2D3748; padding: 2px 6px; border-radius: 4px;">' + (e.message || "Network Error") + '</code><br/><br/>' +
-                                'Ensure that your database segment files (<code>config_part_*.txt</code>) have been successfully uploaded to your storage bucket: <code style="color: #FF8F8F;">' + _getRegistryPath("") + '</code> and that public read access with CORS is correctly set up.';
-                            errorEl.style.display = "block";
-                        }
-                        return; // halt boot sequence
-                    }
                 }
             } else {
                 // Inline single file fallback
