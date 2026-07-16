@@ -2833,7 +2833,7 @@
     </style>
     <script>
         window.__studentAppChunkCount = 5;
-        window.__studentAppBuildId = "prayas_build_1784165381185_eaw1j28";
+        window.__studentAppBuildId = "prayas_build_1784199714511_h0hh27x";
     </script>
 </head>
 <body>
@@ -10472,18 +10472,14 @@
             if (_portalInitialized) return;
             _portalInitialized = true;
 
-            // Synchronize latest student login credentials and category payment setups dynamically
-            try {
-                await _fetchCategoryPaymentConfig();
-            } catch (err) {
+            // Synchronize latest student login credentials and category payment setups dynamically in background (non-blocking)
+            _fetchCategoryPaymentConfig().catch(function(err) {
                 console.error("Dynamic category payment setup fetch error:", err);
-            }
+            });
 
-            try {
-                await _fetchStudentsDatabase();
-            } catch (err) {
+            _fetchStudentsDatabase().catch(function(err) {
                 console.error("Dynamic student DB fetch error:", err);
-            }
+            });
 
             try {
                 setupAntiPiracyBlockers();
@@ -10631,6 +10627,7 @@
             var loadedSuccessfully = true;
             var loadedFromCache = false;
             var cachedData = null;
+            var isCacheUpToDate = false;
 
             if (window.__studentAppChunkCount && window.__studentAppChunkCount > 0) {
                 // Try to load synchronously from localStorage first for absolute instantaneous booting
@@ -10652,7 +10649,8 @@
                         }
                         
                         if (currentBuildId && cachedBuildId && currentBuildId === cachedBuildId) {
-                            console.log("Cached localStorage configuration loaded instantly (" + currentBuildId + "). Syncing in background...");
+                            console.log("Cached localStorage configuration loaded instantly (" + currentBuildId + "). Skipping segment syncing since cache is up-to-date!");
+                            isCacheUpToDate = true;
                         } else {
                             console.log("Updating configuration segments from localStorage state...");
                         }
@@ -10680,7 +10678,8 @@
                                 console.error("Error doing hot start from IndexedDB:", err_init);
                             }
                             if (currentBuildId && cachedBuildId && currentBuildId === cachedBuildId) {
-                                console.log("Cached IndexedDB configuration is loaded instantly (" + currentBuildId + "). Background synchronization starting to look for fresh database updates...");
+                                console.log("Cached IndexedDB configuration is loaded instantly (" + currentBuildId + "). Skipping segment syncing since cache is up-to-date!");
+                                isCacheUpToDate = true;
                             } else {
                                 console.log("Updating configuration segments (" + currentBuildId + ")...");
                             }
@@ -10688,6 +10687,11 @@
                     } catch (cacheErr) {
                         console.warn("Could not load from local IndexedDB cache, fetching fresh...", cacheErr);
                     }
+                }
+
+                if (isCacheUpToDate) {
+                    console.log("Configuration cache up-to-date (" + window.__studentAppBuildId + "). Bypassing chunk downloads.");
+                    return;
                 }
 
                 var loaderOverlay = null;
