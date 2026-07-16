@@ -241,7 +241,6 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Preamble","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Preamble"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Part 1&2 of the Constitution","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Part 1 and Part 2 of the Constitution"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Fundamental Rights","description":"📶 Keep your Internet/Data ON throughout the test.\n\n🎯 Only 1 Free Attempt is available per user. Use it wisely.\n\n🚀 Want unlimited retries and extra practice? Upgrade to Premium and unlock Unlimited Attempts.\n\n⏱️ Manage your time smartly. Accuracy matters more than speed.\n\n📌 Disclaimer\nThis is an independently created practice test designed solely for educational and self-assessment purposes. The questions have been compiled, arranged, and presented in a quiz format by the Prayas One. Any referenced books, titles, trademarks, or educational materials remain the property of their respective owners. No official association, endorsement, sponsorship, or affiliation with any publisher, author, or organization is claimed or implied.\n\nBy starting this test, you acknowledge and agree to these terms.\n\nAll the best! 🍀 Go ace it. ✨","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Fundamental Rights"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Logical Analogy Quick Mock Exam","description":"Standard Analogy Test of Logical Reasoning.","educationalAlignment":{"@type":"AlignmentObject","alignmentType":"educationalSubject","targetName":"Analogy Practice Test"},"learningResourceType":"Exam","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"6K"},"publisher":{"@type":"Organization","name":"Prayas One","logo":"https://iili.io/CKMOrGI.md.png"}}</script>
 
     
     <!-- Google Fonts Imports -->
@@ -2834,7 +2833,7 @@
     </style>
     <script>
         window.__studentAppChunkCount = 5;
-        window.__studentAppBuildId = "prayas_build_1784212742957_2aikst8";
+        window.__studentAppBuildId = "prayas_build_1784215672527_mht4sx9";
     </script>
 </head>
 <body>
@@ -6502,6 +6501,11 @@
         // Catalog Selection Display Helpers
         function getQuestionsCountFromTest(testMeta) {
             if (!testMeta) return 0;
+            if (typeof testMeta.questionsCount === 'number') return testMeta.questionsCount;
+            if (testMeta.questionsCount) {
+                var c = parseInt(testMeta.questionsCount, 10);
+                if (!isNaN(c)) return c;
+            }
             if (testMeta.questionsEn && testMeta.questionsEn.length > 0) return testMeta.questionsEn.length;
             if (testMeta.questionsHi && testMeta.questionsHi.length > 0) return testMeta.questionsHi.length;
             if (testMeta.questionsOther) {
@@ -6559,13 +6563,13 @@
             const targetCategories = (type === 'test' ? DB.testCategories : DB.pdfCategories) || [];
             const visibleCategories = targetCategories.filter(isItemVisibleToStudent);
 
-            // Sort visibleCategories: Unlocked paid categories at the top, then free, then locked paid
+            // Sort visibleCategories: Unlocked paid categories at the top, then locked paid, and free at the bottom
             visibleCategories.sort(function(a, b) {
                 var getRank = function(cat) {
                     if (cat.isPaid) {
-                        return isCategoryUnlocked(cat) ? 1 : 3;
+                        return isCategoryUnlocked(cat) ? 1 : 2;
                     }
-                    return 2; // Free
+                    return 3; // Free
                 };
                 return getRank(a) - getRank(b);
             });
@@ -6699,9 +6703,9 @@
                                               '        </span>';
                         }
                     } else {
-                        statusBadgeHtml = '        <span style="display: inline-flex; align-items: center; gap: 2.5px; color: #2ecc71; font-size: 9.5px; font-weight: 850;">' +
-                                          '            <span style="display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #2ecc71; animation: pulse 1.5s infinite;"></span>' + 
-                                          '            ' + attemptsString + ' Attempts' +
+                        statusBadgeHtml = '        <span style="display: inline-flex; align-items: center; gap: 4px; color: #e67e22; font-size: 9px; font-weight: 900; background: rgba(230, 126, 34, 0.08); padding: 1.5px 6.5px; border-radius: 6px; border: 1px solid rgba(230, 126, 34, 0.15); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.3px;">' +
+                                          '            <i class="ph-bold ph-gift" style="font-size: 10px; color: #e67e22;"></i> ' +
+                                          '            <span>Limited Time Free</span>' +
                                           '        </span>';
                     }
 
@@ -7523,17 +7527,64 @@
 
             const hasResource = (_activeSubcategoryNodeForUrl && ((type === 'test' && _activeSubcategoryNodeForUrl.test) || (type === 'pdf' && _activeSubcategoryNodeForUrl.pdf)));
 
-            // Prepend a special direct launch card if direct content is attached at subcategory level and we are at the root level of topics stack
+            // Prepend a standard direct card if direct content is attached at subcategory level and we are at the root level of topics stack
             if (hasResource && _activeTopicStack.length === 0) {
                 const directCard = document.createElement("div");
                 directCard.className = "outline-item-card";
-                directCard.style.border = "2px dashed var(--primary)";
-                directCard.style.background = "rgba(255, 107, 53, 0.05)";
-                
-                const label = type === 'test' ? "🏆 Launch Sub-category Exam" : "📁 View Sub-category PDF Document";
-                const desc = type === 'test' ? "Primary subcategory-level test assessment" : "Primary subcategory-level study manual";
-                const icon = type === 'test' ? "ph ph-sparkle" : "ph ph-file-pdf";
-                
+
+                var detailsHtml = "";
+                if (type === 'test') {
+                    var totalQ = _activeSubcategoryNodeForUrl.test ? getQuestionsCountFromTest(_activeSubcategoryNodeForUrl.test) : 0;
+                    var durationMins = _activeSubcategoryNodeForUrl.test ? (_activeSubcategoryNodeForUrl.test.duration || 0) : 0;
+                    var attempts = _activeSubcategoryNodeForUrl.test ? parseInt(localStorage.getItem("attempts_test_" + _activeSubcategoryNodeForUrl.test.id) || "0", 10) : 0;
+
+                    var durationText = durationMins + ' Mins';
+
+                    var attemptsText = attempts + (attempts === 1 ? " Attempt" : " Attempts");
+                    var attemptsColor = (attempts > 0) ? "#2ecc71" : "var(--grey-text)";
+                    var attemptsIcon = (attempts > 0) ? "ph-fill ph-check-circle" : "ph-bold ph-circle-dashed";
+
+                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: nowrap; max-width: 100%;">' +
+                                  '        <span style="display: inline-flex; align-items: center; gap: 2px; font-size: 9px; font-weight: 850; color: var(--dark); white-space: nowrap;">' +
+                                  '            <i class="ph-bold ph-question" style="color: #ff6b35; font-size: 11px;"></i> ' + totalQ + ' MCQ' +
+                                  '        </span>' +
+                                  '        <span style="width: 1px; height: 9px; background: rgba(120, 120, 120, 0.15); flex-shrink: 0;"></span>' +
+                                  '        <span style="display: inline-flex; align-items: center; gap: 2px; font-size: 9px; font-weight: 850; color: var(--dark); white-space: nowrap;">' +
+                                  '            <i class="ph-bold ph-clock" style="color: #3498db; font-size: 11px;"></i> ' + durationText +
+                                  '        </span>' +
+                                  '        <span style="width: 1px; height: 9px; background: rgba(120, 120, 120, 0.15); flex-shrink: 0;"></span>' +
+                                  '        <span style="display: inline-flex; align-items: center; gap: 2.5px; font-size: 9px; font-weight: 850; color: ' + attemptsColor + '; white-space: nowrap;">' +
+                                  '            <i class="' + attemptsIcon + '" style="font-size: 11px;"></i> ' + attemptsText +
+                                  '        </span>' +
+                                  '    </div>';
+                } else {
+                    var hasRead = _activeSubcategoryNodeForUrl.id && localStorage.getItem("pdf_read_" + _activeSubcategoryNodeForUrl.id) === "true";
+                    var readText = hasRead ? "Read" : "Unread";
+                    var readColor = hasRead ? "#2ecc71" : "var(--grey-text)";
+                    var readIcon = hasRead ? "ph-fill ph-check-circle" : "ph-bold ph-circle-dashed";
+
+                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: nowrap; max-width: 100%;">' +
+                                  '        <span style="display: inline-flex; align-items: center; gap: 2px; font-size: 9px; font-weight: 850; color: var(--dark); white-space: nowrap;">' +
+                                  '            <i class="ph-bold ph-file-pdf" style="color: #e74c3c; font-size: 11px;"></i> PDF Document' +
+                                  '        </span>' +
+                                  '        <span style="width: 1px; height: 9px; background: rgba(120, 120, 120, 0.15); flex-shrink: 0;"></span>' +
+                                  '        <span style="display: inline-flex; align-items: center; gap: 2.5px; font-size: 9px; font-weight: 850; color: ' + readColor + '; white-space: nowrap;">' +
+                                  '            <i class="' + readIcon + '" style="font-size: 11px;"></i> ' + readText +
+                                  '        </span>' +
+                                  '    </div>';
+                }
+
+                var initSrc = (_activeSubcategoryNodeForUrl.image && window.__imgCache && window.__imgCache[_activeSubcategoryNodeForUrl.image]) || _activeSubcategoryNodeForUrl.image || "";
+                var hasImg = _activeSubcategoryNodeForUrl.image && _activeSubcategoryNodeForUrl.image.trim() !== "";
+                var iconClass = type === 'test' ? "ph ph-exam" : "ph ph-file-pdf";
+
+                var cardHtml = "";
+                if (hasImg) {
+                    cardHtml += '<img class="outline-item-img" src="' + initSrc + '" data-original-src="' + _activeSubcategoryNodeForUrl.image + '">';
+                } else {
+                    cardHtml += '<div class="outline-item-img" style="display:flex;align-items:center;justify-content:center;color: var(--primary);"><i class="' + iconClass + '" style="font-size:24px;"></i></div>';
+                }
+
                 var rootCat = _activeCategoryNodeForUrl;
                 var isDemoMode = rootCat && _demoCategories[rootCat.id];
                 var isFreeTest = false;
@@ -7560,29 +7611,27 @@
                     }
                     handleVerifyDirectMeta(_activeSubcategoryNodeForUrl, type);
                 };
-                
-                var rightIconHtml = '<i class="ph ph-play" style="color: var(--primary);"></i>';
-                var badgeLabelHtml = '<h4 class="outline-item-title" style="color: var(--primary); font-weight:800;">' + label + '</h4>';
-                if (isDemoMode) {
-                    if (isFreeTest) {
-                        badgeLabelHtml = '<h4 class="outline-item-title" style="color: var(--primary); font-weight:800; display: flex; align-items: center; gap: 6px;">' +
-                                         '    <span style="display: inline-flex; align-items: center; gap: 4px; color: #2ecc71; font-size: 9.5px; font-weight: 850; background: rgba(46, 204, 113, 0.08); padding: 1.5px 6px; border-radius: 6px; border: 1px solid rgba(46, 204, 113, 0.15); font-family: Sahitya, serif;"><i class="ph-bold ph-gift" style="font-size: 10px;"></i> Free Demo</span>' +
-                                         '    ' + label +
-                                         '</h4>';
-                    } else {
-                        rightIconHtml = '<i class="ph-fill ph-lock" style="color: #ef4444; font-size: 18px;"></i>';
-                    }
+
+                var badgeLabelHtml = '<h4 class="outline-item-title">' + _activeSubcategoryNodeForUrl.name + '</h4>';
+                if (isDemoMode && isFreeTest) {
+                    badgeLabelHtml = '<h4 class="outline-item-title" style="display: flex; align-items: center; gap: 6px;">' +
+                                     '    <span style="display: inline-flex; align-items: center; gap: 4px; color: #2ecc71; font-size: 9.5px; font-weight: 850; background: rgba(46, 204, 113, 0.08); padding: 1.5px 6px; border-radius: 6px; border: 1px solid rgba(46, 204, 113, 0.15); font-family: Sahitya, serif;"><i class="ph-bold ph-gift" style="font-size: 10px;"></i> Free Demo</span>' +
+                                     '    ' + _activeSubcategoryNodeForUrl.name +
+                                     '</h4>';
                 }
 
-                directCard.innerHTML = 
-                    '<div class="outline-item-img" style="display:flex;align-items:center;justify-content:center; background: var(--primary); color: white;">' +
-                    '    <i class="' + icon + '" style="font-size:24px;"></i>' +
-                    '</div>' +
-                    '<div class="outline-item-details">' +
-                    '    ' + badgeLabelHtml +
-                    '    <p class="outline-item-subtitle">' + desc + '</p>' +
-                    '</div>' +
-                    rightIconHtml;
+                cardHtml += '<div class="outline-item-details">';
+                cardHtml += badgeLabelHtml;
+                cardHtml += detailsHtml;
+                cardHtml += '</div>';
+
+                if (isDemoMode && !isFreeTest) {
+                    cardHtml += '<i class="ph-fill ph-lock" style="color: #ef4444; font-size: 18px; margin-right: 4px;"></i>';
+                } else {
+                    cardHtml += '<i class="ph ph-caret-right" style="color: var(--primary);"></i>';
+                }
+
+                directCard.innerHTML = cardHtml;
                 container.appendChild(directCard);
             }
 
@@ -7671,12 +7720,7 @@
                 // Compute stats for topic level
                 var detailsHtml = "";
                 if (topic.topics && topic.topics.length > 0) {
-                    const subcount = topic.topics.filter(isItemVisibleToStudent).length;
-                    detailsHtml = '    <div style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; background: rgba(120, 120, 120, 0.05); border: 1px solid rgba(120, 120, 120, 0.08); padding: 2px 6px; border-radius: 6px; box-sizing: border-box; flex-wrap: nowrap; max-width: 100%;">' +
-                                  '        <span style="display: inline-flex; align-items: center; gap: 2px; font-size: 9px; font-weight: 850; color: var(--dark); white-space: nowrap;">' +
-                                  '            <i class="ph-bold ph-folder" style="color: #f1c40f; font-size: 11px;"></i> ' + subcount + ' Items inside' +
-                                  '        </span>' +
-                                  '    </div>';
+                    detailsHtml = "";
                 } else if (type === 'test') {
                     var totalQ = topic.test ? getQuestionsCountFromTest(topic.test) : 0;
                     var durationMins = topic.test ? (topic.test.duration || 0) : 0;
