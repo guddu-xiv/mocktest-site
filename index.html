@@ -2851,7 +2851,7 @@
     </style>
     <script>
         window.__studentAppChunkCount = 5;
-        window.__studentAppBuildId = "prayas_build_1784302353169_22t5x8l";
+        window.__studentAppBuildId = "prayas_build_1784304501817_5pxcz6g";
     </script>
 </head>
 <body>
@@ -3537,6 +3537,38 @@
                 
             </div>
         </div>
+
+        <!-- Box 5: Legal & Compliance Box (ALWAYS VISIBLE for AdSense & Trust) -->
+        <div style="background: var(--light-grey); border: 1px solid var(--border-color); border-radius: 24px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 20px; text-align: left;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                <div style="background: rgba(120, 120, 120, 0.08); border: 1.5px solid var(--border-color); width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;">
+                    <i class="ph-bold ph-shield-check" style="color: var(--dark); font-size: 16px;"></i>
+                </div>
+                <div>
+                    <h4 style="margin: 0; font-size: 13.5px; font-weight: 900; color: var(--dark); letter-spacing: -0.3px;">Legal & Compliance</h4>
+                    <p style="margin: 2px 0 0; font-size: 10px; font-weight: 750; color: var(--grey-text);">Policies and safety disclosures</p>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button onclick="handleTriggerShowLegalModal('privacy')" style="background: none; border: none; padding: 10px 14px; background: rgba(0,0,0,0.01); border: 1.5px solid var(--border-color); border-radius: 14px; color: var(--dark); text-align: left; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: space-between; width: 100%; cursor: pointer;">
+                    <span>Privacy Policy</span>
+                    <i class="ph ph-caret-right" style="font-size: 14px; color: var(--grey-text);"></i>
+                </button>
+                <button onclick="handleTriggerShowLegalModal('terms')" style="background: none; border: none; padding: 10px 14px; background: rgba(0,0,0,0.01); border: 1.5px solid var(--border-color); border-radius: 14px; color: var(--dark); text-align: left; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: space-between; width: 100%; cursor: pointer;">
+                    <span>Terms & Conditions</span>
+                    <i class="ph ph-caret-right" style="font-size: 14px; color: var(--grey-text);"></i>
+                </button>
+                <button onclick="handleTriggerShowLegalModal('disclaimer')" style="background: none; border: none; padding: 10px 14px; background: rgba(0,0,0,0.01); border: 1.5px solid var(--border-color); border-radius: 14px; color: var(--dark); text-align: left; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: space-between; width: 100%; cursor: pointer;">
+                    <span>Legal Disclaimer</span>
+                    <i class="ph ph-caret-right" style="font-size: 14px; color: var(--grey-text);"></i>
+                </button>
+                <button onclick="handleTriggerShowLegalModal('copyright')" style="background: none; border: none; padding: 10px 14px; background: rgba(0,0,0,0.01); border: 1.5px solid var(--border-color); border-radius: 14px; color: var(--dark); text-align: left; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: space-between; width: 100%; cursor: pointer;">
+                    <span>Copyright Policy</span>
+                    <i class="ph ph-caret-right" style="font-size: 14px; color: var(--grey-text);"></i>
+                </button>
+            </div>
+        </div>
     </div>
 
 
@@ -3869,6 +3901,37 @@
         <div class="bottom-nav-item" id="tab-acc" onclick="handleTabNavigation('acc')">
             <i class="ph ph-user"></i>
             <span>Account</span>
+        </div>
+    </div>
+
+
+    <!-- Beautiful Custom Legal Policy Modal -->
+    <div id="legalPolicyModalOverlay" style="display: none; align-items: center; justify-content: center; background: rgba(15, 23, 42, 0.45); z-index: 9999999; position: fixed; top: 0; left: 0; right: 0; bottom: 0; padding: 20px; backdrop-filter: blur(8px); transition: all 0.2s ease;">
+        <div class="custom-dialog-card" style="border-radius: 24px; padding: 24px; width: 100%; max-width: 500px; max-height: 80vh; display: flex; flex-direction: column; text-align: left; animation: customZoomIn 0.25s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box; background: var(--bg-card); border: 1.5px solid var(--border-color);">
+            <!-- Modal Header -->
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; border-bottom: 1.5px solid var(--border-color); padding-bottom: 14px; flex-shrink: 0;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="background: rgba(255, 107, 53, 0.1); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255, 107, 53, 0.2);">
+                        <i class="ph-bold ph-shield-check" style="font-size: 18px; color: #FF6B35;"></i>
+                    </div>
+                    <div>
+                        <h3 id="legalPolicyModalTitle" style="margin: 0; font-size: 16px; font-weight: 850; color: var(--dark);">Legal Policy</h3>
+                    </div>
+                </div>
+                <button onclick="closeLegalPolicyModal()" style="background: none; border: none; color: var(--grey-text); cursor: pointer; padding: 4px; display: inline-flex; align-items: center; justify-content: center;">
+                    <i class="ph-bold ph-x" style="font-size: 20px;"></i>
+                </button>
+            </div>
+            <!-- Modal Content (Scrollable) -->
+            <div id="legalPolicyModalContent" style="overflow-y: auto; flex-grow: 1; padding-right: 4px; font-size: 12.5px; color: var(--grey-text); line-height: 1.6;">
+                <!-- Content injected dynamically -->
+            </div>
+            <!-- Modal Footer -->
+            <div style="margin-top: 16px; border-top: 1.5px solid var(--border-color); padding-top: 14px; display: flex; justify-content: flex-end; flex-shrink: 0;">
+                <button onclick="closeLegalPolicyModal()" class="btn-fill-prime" style="margin: 0; padding: 10px 24px; border-radius: 12px; font-weight: 800; font-size: 12px; cursor: pointer; height: auto;">
+                    Understood & Close
+                </button>
+            </div>
         </div>
     </div>
 
@@ -7367,6 +7430,89 @@
 
         window.closeHelpdeskModal = function() {
             var overlay = document.getElementById("helpdeskModalOverlay");
+            if (overlay) {
+                overlay.style.display = "none";
+            }
+        };
+
+        window.handleTriggerShowLegalModal = function(type) {
+            var titleEl = document.getElementById("legalPolicyModalTitle");
+            var contentEl = document.getElementById("legalPolicyModalContent");
+            var overlay = document.getElementById("legalPolicyModalOverlay");
+
+            if (!overlay || !titleEl || !contentEl) return;
+
+            var title = "Legal Policy";
+            var content = "";
+
+            if (type === "privacy") {
+                title = "Privacy Policy";
+                content = `
+                    <div style="font-family: sans-serif; line-height: 1.6;">
+                        <p style="margin-top: 0;">Welcome to <strong>Prayas One</strong>. We prioritize user trust and are committed to protecting the privacy of our students and portal visitors.</p>
+                        <h4 style="margin: 14px 0 4px 0; color: var(--dark); font-weight: 800; font-size: 13px;">1. Information We Collect</h4>
+                        <p>We collect student emails and mobile numbers supplied during registration to facilitate secure access to premium mock examination papers and practice test modules.</p>
+                        
+                        <h4 style="margin: 14px 0 4px 0; color: var(--dark); font-weight: 800; font-size: 13px;">2. Google AdSense & Cookies</h4>
+                        <p>We display advertising units provided by <strong>Google AdSense</strong>:</p>
+                        <ul>
+                            <li style="margin-bottom: 4px;">Google uses cookies to serve ads on <strong>https://prayasone.in</strong> based on user visits.</li>
+                            <li style="margin-bottom: 4px;">Users can opt out of personalized ads by visiting Google's Ads Settings.</li>
+                        </ul>
+
+                        <h4 style="margin: 14px 0 4px 0; color: var(--dark); font-weight: 800; font-size: 13px;">3. Scorecard & Performance Analytics</h4>
+                        <p>Your practice scores, correct/incorrect responses, and obtained marks are stored securely to generate performance scorecards and leaderboard ranking lists.</p>
+                    </div>
+                `;
+            } else if (type === "terms") {
+                title = "Terms & Conditions";
+                content = `
+                    <div style="font-family: sans-serif; line-height: 1.6;">
+                        <p style="margin-top: 0;">These terms and conditions outline the usage rules for the <strong>Prayas One</strong> platform at <a href="https://prayasone.in" target="_blank" style="color: #FF6B35; text-decoration: none; font-weight: 700;">https://prayasone.in</a>.</p>
+                        
+                        <h4 style="margin: 14px 0 4px 0; color: var(--dark); font-weight: 800; font-size: 13px;">1. Account Security & Concurrent Limits</h4>
+                        <p>Premium MCQ test tracks are restricted to registered aspirants. Sharing or transferring credentials is prohibited. The system tracks active concurrent sessions and automatically signs out previous sessions upon fresh login detections.</p>
+
+                        <h4 style="margin: 14px 0 4px 0; color: var(--dark); font-weight: 800; font-size: 13px;">2. Intellectual Property Notice</h4>
+                        <p>All online mock tests, question databases, and bilingual explanations compiled on Prayas One are proprietary assets. You are strictly prohibited from reselling, scraping, distributing, or republishing our materials on external platforms.</p>
+                    </div>
+                `;
+            } else if (type === "disclaimer") {
+                title = "Legal Disclaimer";
+                content = `
+                    <div style="font-family: sans-serif; line-height: 1.6;">
+                        <p style="margin-top: 0; background: rgba(239, 68, 68, 0.05); padding: 12px; border: 1.5px solid rgba(239, 68, 68, 0.15); border-radius: 12px; font-weight: 700; color: #ef4444;">
+                            <strong>STRICT NO-GOVERNMENT AFFILIATION DECLARATION:</strong> Prayas One is an <strong>independent, privately operated educational study platform</strong>. We are <strong>NOT affiliated, associated, or officially connected</strong> with any central or state government body, public service commission, recruitment board, or official exam department (such as SSC, UPSC, RRB, Banking boards, etc.).
+                        </p>
+                        
+                        <h4 style="margin: 14px 0 4px 0; color: var(--dark); font-weight: 800; font-size: 13px;">1. Practice Material & Evaluation</h4>
+                        <p>All test series, worksheets, and scorecards are prepared for self-study practice and educational evaluations. While we maintain high standards, we offer no warranties regarding absolute correctness or exam alignment.</p>
+                    </div>
+                `;
+            } else if (type === "copyright") {
+                title = "Copyright & Original Content Policy";
+                content = `
+                    <div style="font-family: sans-serif; line-height: 1.6;">
+                        <p style="margin-top: 0; background: rgba(37, 211, 102, 0.05); padding: 12px; border: 1.5px solid rgba(37, 211, 102, 0.15); border-radius: 12px; font-weight: 700; color: #15803d;">
+                            <strong>100% ORIGINAL CONTENT PLEDGE:</strong> All mock test series, practice questions, bilingual step-by-step solutions, and reference materials on Prayas One are originally created and independently compiled by our dedicated in-house author team.
+                        </p>
+                        
+                        <h4 style="margin: 14px 0 4px 0; color: var(--dark); font-weight: 800; font-size: 13px;">1. Original Authorship & Curation</h4>
+                        <p>Every single MCQ and bilingual explanation on our portal is carefully designed from scratch to aid student mock practice. We do not copy, scrape, or duplicate content from other online platforms or books, ensuring supreme educational standards.</p>
+                        
+                        <h4 style="margin: 14px 0 4px 0; color: var(--dark); font-weight: 800; font-size: 13px;">2. Protection of Original Materials</h4>
+                        <p>Unauthorized reproduction, distribution, reselling, or commercial use of our originally curated tests is strictly prohibited and subject to intellectual property protection laws.</p>
+                    </div>
+                `;
+            }
+
+            titleEl.innerText = title;
+            contentEl.innerHTML = content;
+            overlay.style.display = "flex";
+        };
+
+        window.closeLegalPolicyModal = function() {
+            var overlay = document.getElementById("legalPolicyModalOverlay");
             if (overlay) {
                 overlay.style.display = "none";
             }
