@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Free SSC, Railway & State Government Exam Mock Tests</title>
     
+    
+    <!-- Google AdSense API Client Initialization -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4084240304484658" crossorigin="anonymous"></script>
+    
+    
     <meta name="description" content="Prepare for SSC, Railway & State Exams with free mock tests, PYQs, chapter-wise quizzes, detailed solutions, and performance analysis.">
     <meta name="keywords" content="SSC Mock Test, Railway Mock Test, State Exam Mock Test, SSC CGL Mock Test, SSC CHSL Mock Test, SSC MTS Mock Test, RRB NTPC Mock Test, Railway Group D Mock Test, Government Exam Mock Test, Online Test Series, Free Mock Test, Previous Year Questions, PYQs, Chapter Wise Test, Daily Quiz, Current Affairs Quiz, General Knowledge Quiz, Reasoning Mock Test, Quantitative Aptitude Test, English Mock Test, Hindi Mock Test, Competitive Exam Preparation">
     <meta name="author" content="Prayas One">
@@ -2846,7 +2851,7 @@
     </style>
     <script>
         window.__studentAppChunkCount = 5;
-        window.__studentAppBuildId = "prayas_build_1784246966893_sfzlb0f";
+        window.__studentAppBuildId = "prayas_build_1784302353169_22t5x8l";
     </script>
 </head>
 <body>
@@ -2982,6 +2987,9 @@
             <div class="slider-dots" id="studentSliderDots"></div>
         </div>
 
+        <!-- Google AdSense Home Top Ad Slot -->
+        <div id="ad-container-home-top" style="margin: 14px 0 6px; display: none;"></div>
+
         <!-- Zomato style Notification Carousel -->
         <div class="section-header-title" id="notifScrollAnchor" style="font-size: 16px; margin-bottom: 6px;">
             <i class="ph-fill ph-bell-ringing" style="color: var(--primary);"></i> Important Notices
@@ -3054,12 +3062,17 @@
 
         <!-- Saved Questions Hub dashboard segment -->
         <div id="savedQuestionsSection"></div>
+
+        <!-- Google AdSense Home Bottom Ad Slot -->
+        <div id="ad-container-home-bottom" style="margin: 20px 0; display: none;"></div>
     </div>
 
     <!-- Category screen -->
     <div id="scr-category" class="screen">
         <h3 class="section-header-title" id="categorySelectionTitle">--</h3>
         <div id="categoryGridArea"></div>
+        <!-- Google AdSense Category Bottom Ad Slot -->
+        <div id="ad-container-category-bottom" style="margin: 20px 0; display: none;"></div>
     </div>
 
     <!-- Sub-category screen -->
@@ -3622,6 +3635,9 @@
         <div id="analysisDetailViewerCard" style="background: white; border: 1px solid var(--border-color); border-radius: 20px; padding: 20px; margin-bottom: 25px; min-height: 200px; box-shadow: 0 4px 15px rgba(0,0,0,0.01);">
             <!-- Active Selected Question render here -->
         </div>
+
+        <!-- Google AdSense Results Bottom Ad Slot -->
+        <div id="ad-container-results-bottom" style="margin: 20px 0; display: none;"></div>
 
         <button class="btn-fill-prime" onclick="handleTriggerRefreshReboot()" style="background: var(--dark); border-radius: 14px; padding: 14px; font-size: 14px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; margin-top: 20px;">
             <i class="ph ph-squares-four" style="font-size: 18px;"></i> Back To Dashboard
@@ -5456,6 +5472,7 @@
                 }
             }, 1000);
             document.getElementById("test-engine-panel").style.display = "flex";
+            try { clearAllGoogleAds(); } catch(e) {}
             document.getElementById("mainHeader").style.display = "none";
             renderEngineQuestionItem();
         }
@@ -6316,6 +6333,115 @@
             }, 100);
         }
 
+        // Google AdSense Dynamic Controller
+        function refreshGoogleAds() {
+            var adsEnabled = true;
+            var pubId = "ca-pub-4084240304484658";
+            
+            if (!adsEnabled || !pubId || pubId.trim() === "") {
+                clearAllGoogleAds();
+                return;
+            }
+
+            // ONLY show ads when user is logged out!
+            if (_studentLoggedInUser !== null) {
+                clearAllGoogleAds();
+                return;
+            }
+
+            // DO NOT show ads while inside the exam/test engine panel!
+            var testPanel = document.getElementById("test-engine-panel");
+            if (testPanel && testPanel.style.display !== "none") {
+                clearAllGoogleAds();
+                return;
+            }
+
+            if (window._testStateActiveNow) {
+                clearAllGoogleAds();
+                return;
+            }
+
+            // Render visible containers!
+            renderGoogleAdUnit("ad-container-home-top", "1577869180");
+            renderGoogleAdUnit("ad-container-home-bottom", "5269702180");
+            renderGoogleAdUnit("ad-container-category-bottom", "9058306321");
+            renderGoogleAdUnit("ad-container-results-bottom", "9058306321");
+        }
+
+        function clearAllGoogleAds() {
+            var containers = [
+                "ad-container-home-top", 
+                "ad-container-home-bottom", 
+                "ad-container-category-bottom", 
+                "ad-container-results-bottom"
+            ];
+            containers.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) {
+                    el.innerHTML = "";
+                    el.style.display = "none";
+                }
+            });
+        }
+
+        function renderGoogleAdUnit(containerId, slotId) {
+            var el = document.getElementById(containerId);
+            if (!el) return;
+
+            // Check screen active state depending on containerId
+            var isScreenActive = false;
+            if (containerId === "ad-container-home-top" || containerId === "ad-container-home-bottom") {
+                var scr = document.getElementById("scr-home");
+                if (scr && scr.classList.contains("active")) {
+                    isScreenActive = true;
+                }
+            } else if (containerId === "ad-container-category-bottom") {
+                var scr = document.getElementById("scr-category");
+                if (scr && scr.classList.contains("active")) {
+                    isScreenActive = true;
+                }
+            } else if (containerId === "ad-container-results-bottom") {
+                var scr = document.getElementById("scr-results");
+                if (scr && scr.classList.contains("active")) {
+                    isScreenActive = true;
+                }
+            }
+
+            if (!isScreenActive) {
+                el.style.display = "none";
+                return;
+            }
+
+            el.style.display = "block";
+            
+            // To prevent double loading errors
+            if (el.querySelector("ins.adsbygoogle")) {
+                return; 
+            }
+
+            var pubId = "ca-pub-4084240304484658";
+            var slotHtml = "";
+            if (slotId && slotId.trim() !== "") {
+                slotHtml = 'data-ad-slot="' + slotId + '"';
+            }
+
+            el.innerHTML = 
+                '<div style="text-align: center; margin: 12px 0; max-width: 100%; overflow: hidden;">' +
+                '  <ins class="adsbygoogle" ' +
+                '       style="display:block" ' +
+                '       data-ad-client="' + pubId + '" ' +
+                '       ' + slotHtml + ' ' +
+                '       data-ad-format="auto" ' +
+                '       data-full-width-responsive="true"></ins>' +
+                '</div>';
+
+            try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+                console.warn("Google AdSense push error:", e);
+            }
+        }
+
         // Tab Navigation Central Routing
         function handleTabNavigation(tabId) {
             try {
@@ -6363,6 +6489,11 @@
                 refreshStudentAccountProfileGate();
                 updateHistoryAndUrl(null, null, null, 'acc');
             }
+
+            // Trigger AdSense refresh on tab navigation
+            try {
+                refreshGoogleAds();
+            } catch(e) {}
         }
 
         // Navigation Stack pushes
@@ -6382,6 +6513,11 @@
             if (screenElementId === 'scr-pay') {
                 try { ensurePaymentQrCached(); } catch(e){}
             }
+
+            // Trigger AdSense refresh on screen navigation
+            try {
+                refreshGoogleAds();
+            } catch(e) {}
         }
 
         // Nav stack back trace
@@ -6455,6 +6591,11 @@
                     updateHistoryAndUrl(_activeCategoryNodeForUrl, _activeSubcategoryNodeForUrl, null);
                 }
             }
+
+            // Trigger AdSense refresh on history back popping
+            try {
+                refreshGoogleAds();
+            } catch(e) {}
         }
 
         // Quick Access Navigation System
@@ -8470,6 +8611,7 @@
 
             // Launch timers
             document.getElementById("test-engine-panel").style.display = "flex";
+            try { clearAllGoogleAds(); } catch(e) {}
             renderEngineQuestionItem();
             
             _timeRemainingSecs = (_activeTest.duration || 60) * 60;
